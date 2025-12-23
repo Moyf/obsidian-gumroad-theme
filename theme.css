@@ -1,0 +1,877 @@
+/* 
+  Gumroad Theme for Obsidian - V2
+  Inspired by Gumroad's brutalist design
+*/
+
+/* Style Settings 备选 */
+
+/* 1. 图片是否自带边缘 */
+/* 2. 是否覆盖主题色（Accent color） */
+/* 3. 多彩标题 */
+/* 4. 双栏属性？ */
+
+/* 插件适配 */
+/* NTB */
+/* NN */
+
+body {
+  /* Gumroad Palette */
+  --gumroad-pink: #ff90e8;
+  --gumroad-yellow: #f1f333;
+  --gumroad-yellow: #f7cc2a;
+  --gumroad-black: #000000;
+  --gumroad-white: #ffffff;
+  --gumroad-gray: #f4f4f0;
+  --gumroad-blue: #23a094;
+
+  --gumroad-purple: #97a6eb;
+  --gumroad-orange: #f57757;
+
+
+  --transition-duration: .14s;
+
+  --gumroad-accent: var(--color-accent);
+
+  --gumroad-border-radius-s: 4px;
+  --gumroad-border-radius-m: 8px;
+  --gumroad-border-radius-l: 16px;
+  --gumroad-border-radius: var(--gumroad-border-radius-s);
+
+  --bg1: var(--gumroad-white);
+  --bg2: var(--gumroad-gray);
+  --bg3: var(--gumroad-white);
+
+  --tx1: var(--gumroad-black);
+  --tx2: var(--gumroad-black);
+  --tx3: #999;
+
+  --hl1: var(--gumroad-accent);
+
+  /* Borders */
+  --border-width: 1px;
+  /* --interactive-accent: var(--gumroad-black); */
+  --interactive-accent-hover: var(--gumroad-accent);
+
+  --tab-outline-color: var(--gumroad-black);
+
+  /* Layout */
+  --tab-radius: 0px;
+  --window-gap: 10px;
+  /* Gap between panes for that card look */
+
+
+  --header-height: 50px;
+  --callout-title-weight: 400;
+
+  --background-modifier-border: var(--gumroad-black);
+  --background-modifier-border-focus: var(--gumroad-accent);
+
+  --dropdown-background-hover: transparent;
+  --input-shadow-hover: none;
+
+  --background-primary-alt: var(--background-primary);
+
+  /* 设置 */
+  --setting-items-border-color: var(--gumroad-black);
+  --setting-items-border-width: 1px;
+  --setting-items-radius: 8px;
+
+  /* --setting-items-padding: 0px; */
+
+  --toggle-radius: var(--gumroad-border-radius-s);
+  --toggle-thumb-radius: var(--gumroad-border-radius-s);
+
+  --radius-s: 0px;
+
+  --tag-radius: 0px;
+
+
+  --nav-item-weight-active: 700;
+  
+  /* Prompt */
+  --prompt-border-color: var(--gumroad-black);
+}
+
+.theme-light {
+  /* Override essentials */
+  --background-primary: var(--bg1);
+  --background-secondary: var(--bg2);
+  --background-secondary-alt: var(--bg2);
+  /* Make sidebars distinct gray */
+
+  --text-normal: var(--tx1);
+  --text-muted: var(--tx3);
+  --text-faint: #999;
+
+  /* Borders & Dividers */
+  --divider-color: var(--gumroad-black);
+  --prompt-border: 2px solid var(--gumroad-black);
+  --modal-border: 2px solid var(--gumroad-black);
+
+  /* Inputs */
+  --input-radius: 0px;
+  --input-radius: var(--gumroad-border-radius);
+  --input-border-width: 1px;
+}
+
+.theme-dark {
+  --bg1: var(--gumroad-black);
+  --bg2: #1a1a1a;
+  --gumroad-black: #dadada;
+  --gumroad-white: #121212;
+  --gumroad-gray: #1a1a1a;
+
+  --tx3: #999;
+  /* --text-faint: #666; */
+
+  /* Borders & Dividers */
+  --divider-color: var(--gumroad-white);
+  --prompt-border: 2px solid var(--gumroad-white);
+  --modal-border: 2px solid var(--gumroad-white);
+
+}
+
+
+
+/* 多彩标题 */
+h1, .markdown-source-view.mod-cm6 .cm-header-1 {
+    color: var(--gumroad-pink);
+}
+
+body {
+  --h1-color: var(--gumroad-pink);
+  --h2-color: var(--gumroad-blue);
+  --h5-color: var(--gumroad-yellow);
+  --h3-color: var(--gumroad-orange);
+  --h4-color: var(--gumroad-purple);
+}
+
+/* 悬浮 */
+@media (hover: hover) {
+    .markdown-source-view.mod-cm6 .cm-embed-block:not(.cm-table-widget, .cm-lang-base):hover {
+        box-shadow: none;
+    }
+}
+
+
+
+/* Navbar 标题栏 */
+.view-header,
+.nav-header {
+  border-bottom: 1px solid var(--gumroad-black) !important;
+  box-shadow: none;
+
+  /* height: var(--header-height); */
+  /* height: 40px; */
+}
+
+/* === Tab 标签 === */
+
+/* 中间的标签页 */
+
+/* 间隔 */
+.workspace .mod-root .workspace-tab-header-inner::after {
+  inset-inline-end: 0px;
+  /* background-color: var(--tab-divider-color); */
+  height: 20px;
+}
+
+.workspace .mod-root .workspace-tab-header {
+  /* padding: 0px; */
+}
+
+.workspace-split.mod-root .workspace-tab-header:not(.is-active) {
+    &:hover {
+      /* border: 1px solid var(--gumroad-black); */
+      .workspace-tab-header-inner {
+        outline: 1px solid var(--gumroad-black);
+
+      }
+      /* box-shadow: 2px 2px 0 var(--gumroad-black);
+      transform: translate(-1px, -1px); */
+    }
+}
+
+
+.workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active {
+  margin-left: 6px !important;
+  margin-right: 6px !important;
+  border: 1px solid var(--gumroad-black);
+  box-shadow: 3px 3px 0 var(--gumroad-black);
+  /* margin: 6px !important; */
+}
+
+.workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active::before, .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active::after {
+    box-shadow: none;
+}
+
+.workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header {
+    margin-bottom: 10px;
+    border-radius: 0px;
+}
+
+/* 边缘显示 */
+
+.mod-left-split .workspace-tab-header-container-inner, .mod-right-split .workspace-tab-header-container-inner {
+  margin: 6px;
+}
+
+.mod-left-split .workspace-tab-header, .mod-right-split .workspace-tab-header {
+  margin: 1px !important;
+
+}
+
+
+/* 
+   === MAIN LAYOUT === 
+   Make the workspace feel like a canvas with floating cards 
+*/
+
+/* The workspace background */
+.workspace {
+  background-color: var(--gumroad-gray);
+}
+
+/* The Editor "Page" - Card Style */
+.workspace-leaf .workspace-leaf-content {
+  border-left: 1px solid var(--gumroad-black);
+  border-right: 1px solid var(--gumroad-black);
+  border-top: none;
+  border-bottom: 1px solid var(--gumroad-black);
+  box-shadow: none;
+  /* Removed heavy shadow */
+  margin: 0px;
+  /* Reset margin */
+  overflow: hidden;
+  /* Keep content inside border */
+}
+
+/* Inactive leaves - flatter */
+.workspace-leaf:not(.mod-active) .workspace-leaf-content {
+  /* border: none; */
+  /* margin: 0; */
+}
+
+/* Sidebar Specific - No border/margin */
+.mod-left-split .workspace-leaf-content,
+.mod-right-split .workspace-leaf-content {
+  border: none;
+  border-bottom: 1px solid var(--gumroad-black);
+  /* margin: 0 !important; */
+}
+
+/* 
+   === SCROLLBARS === 
+   Hidden by default, shown when active/hovered
+*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+  /* background-color: black; */
+  /* display: none; */
+  /* Hidden by default */
+}
+
+.workspace-leaf.mod-active ::-webkit-scrollbar,
+.workspace-leaf-content:hover ::-webkit-scrollbar {
+  display: block;
+  /* Shown when active or hovered */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--gumroad-black);
+  border: 2px solid var(--gumroad-white);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gumroad-accent);
+}
+
+/* Sidebar Styling */
+
+/* 左侧边栏 */
+.workspace-ribbon {
+  background-color: var(--gumroad-gray);
+  /* Changed from yellow to gray */
+  border-right: 1px solid var(--gumroad-black);
+  border-bottom: 1px solid var(--gumroad-black);
+}
+
+.workspace-ribbon-collapse-btn,
+.side-dock-ribbon-action {
+  color: var(--gumroad-gray-60) !important;
+}
+
+.workspace-ribbon-collapse-btn:hover,
+.side-dock-ribbon-action:hover {
+  background-color: var(--gumroad-accent);
+  color: var(--gumroad-black);
+}
+
+.workspace-ribbon.side-dock-ribbon.mod-left.is-collapsed {
+  border-right: none;
+  /* 渐变出现 */
+  /* border-right-color: transparent;
+  transition: border-right-color 0.3s ease; */
+}
+
+
+.workspace-split.mod-left-split {
+  background-color: var(--gumroad-gray);
+  border-right: none;
+  /* Removed to fix stray line artifact */
+}
+
+.workspace-split.mod-right-split {
+  background-color: var(--gumroad-gray);
+  border-left: none;
+}
+
+/* Fix stray lines from resize handles */
+.workspace-leaf-resize-handle {
+  /* background-color: transparent !important; */
+  border: none !important;
+  width: 100%;
+  /* width: 0px !important; */
+  /* Minimize width to prevent gaps */
+}
+
+/* File Explorer Items */
+.nav-file-title,
+.nav-folder-title {
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+}
+
+.nav-file-title:hover,
+.nav-folder-title:hover {
+  background-color: var(--gumroad-accent);
+  border: 1px solid var(--gumroad-black);
+  color: var(--gumroad-black);
+}
+
+.nav-file-title.is-active {
+  background-color: var(--gumroad-white);
+  border: 2px solid var(--gumroad-black);
+  box-shadow: 3px 3px 0 var(--gumroad-black);
+  font-weight: 800;
+  transform: translate(-1px, -1px);
+}
+
+/* 
+   === CONTENT STYLING ===
+*/
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--gumroad-black);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.edit-block-button {
+  opacity: 0.2;
+}
+
+/* Callouts - The "Brutalist" Look */
+.markdown-source-view.mod-cm6 .callout {
+  background-color: var(--gumroad-white);
+  border: 2px solid var(--gumroad-black);
+  border-radius: 6px;
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+  transition-timing-function: ease-out;
+
+  padding: 0;
+  margin: 5px;
+}
+
+.markdown-source-view.mod-cm6 .callout:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--gumroad-black);
+  /* Pure black shadow */
+}
+
+.callout-title {
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--gumroad-black);
+  background-color: var(--gumroad-blue);
+  color: white;
+
+  display: flex;
+  
+  /* Changed from inline-block */
+  /* width: fit-content; */
+
+  /* Keep label size */
+  align-items: center;
+
+  padding: 12px 12px;
+  /* transform: rotate(-1deg); Removed for cleaner look */
+  white-space: nowrap;
+  /* Prevent wrapping */
+  word-break: keep-all;
+
+}
+
+.callout-content {
+  padding: var(--callout-padding);
+}
+
+/* Callout variants */
+.callout[data-callout="info"],
+.callout[data-callout="todo"] {
+  /* Keep default white bg, yellow title */
+}
+
+.callout[data-callout="important"],
+.callout[data-callout="warning"] {
+  border-color: var(--gumroad-black);
+}
+
+.callout[data-callout="important"] .callout-title,
+.callout[data-callout="warning"] .callout-title {
+  background-color: var(--gumroad-accent);
+}
+
+/* Quote */
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote:before, .markdown-source-view.mod-cm6 .cm-blockquote-border:before {
+  width: 3px;
+  border-width: 4px;
+}
+
+
+/* Inline Code */
+code {
+  background-color: var(--gumroad-yellow);
+  border: 1px solid var(--gumroad-black);
+  color: var(--gumroad-black);
+  padding: 2px 6px;
+  font-family: var(--font-monospace);
+  font-weight: bold;
+}
+
+/* Pre / Code Blocks */
+pre {
+  background-color: var(--gumroad-black);
+  color: var(--gumroad-white);
+  border: 2px solid var(--gumroad-black);
+  box-shadow: 6px 6px 0 var(--gumroad-accent);
+  padding: 15px;
+}
+
+/* Links */
+a,
+.cm-hmd-internal-link {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  padding: 0;
+  /* color: var(--gumroad-black); */
+  font-weight: 600;
+}
+
+a:hover,
+.cm-hmd-internal-link:hover {
+  background: none;
+  color: var(--gumroad-accent);
+  box-shadow: none;
+  border: none;
+  transform: none;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Blockquotes */
+/* 渲染的引用 */
+.markdown-rendered blockquote {
+  border-left: none;
+  border-left: 3px solid var(--gumroad-black);
+  /* remove standard strip */
+  outline: 1px solid var(--gumroad-black);
+  background-color: var(--gumroad-gray);
+  /* margin: 1em 0; */
+  padding: var(--size-4-1) var(--size-4-2);
+  position: relative;
+
+  padding-inline-start: var(--size-4-8);
+}
+
+blockquote::before {
+  content: "“";
+  font-size: 4em;
+  position: absolute;
+  top: -20px;
+  left: var(--size-4-1);
+  color: var(--gumroad-accent);
+  z-index: 0;
+}
+
+/* Images */
+img {
+  border: 2px solid var(--gumroad-black);
+  box-shadow: 5px 5px 0 var(--gumroad-accent);
+  max-width: 90%;
+
+  &:hover {
+    /* transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--gumroad-accent); */
+    /* transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: .5rem .5rem 0rem var(--gumroad-accent);
+    transform: translate(-0.25rem, -0.25rem); */
+  }
+}
+
+/* UI Controls */
+button:not(.clickable-icon) {
+  border: 1px solid var(--gumroad-black);
+  border-radius: 4px;
+  background-color: var(--gumroad-white);
+  color: var(--gumroad-black);
+  font-weight: 600;
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+  transition-timing-function: ease-out;
+
+  box-shadow: none;
+
+  &:hover {
+    /* background-color: var(--gumroad-black); */
+    transform: translate(-2px, -2px);
+    box-shadow: 0.25em 0.25em 0 var(--gumroad-black);
+  }
+}
+
+
+button.mod-cta {
+  background-color: var(--gumroad-black);
+  color: var(--gumroad-white);
+  /* box-shadow: 4px 4px 0 var(--gumroad-yellow); */
+  border: 1px solid black;
+  border-radius: 4px;
+  /* transition: transform 0.1s, box-shadow 0.1s; */
+  /* Already specific, good */
+}
+
+button.mod-cta:hover {
+  /* background-color: var(--gumroad-black); */
+  color: var(--gumroad-black);
+  background-color: var(--gumroad-accent);
+
+  transform: translate(-2px, -2px);
+  box-shadow: 0.25em 0.25em 0 var(--gumroad-black);
+}
+
+button.mod-cta:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 var(--gumroad-accent);
+}
+
+
+/* 模态窗口 */
+.modal-container.mod-dim .modal {
+  --modal-radius: var(--gumroad-border-radius);
+  --modal-border-color: var(--gumroad-black);
+  border: 1px solid var(--gumroad-black);
+  border-radius: 8px;
+
+  /* box-shadow: 7px 7px 0 var(--gumroad-black); */
+  /* margin: 0.5em; */
+
+}
+
+.modal-container.mod-dim .modal:not(.mod-settings) {
+  box-shadow: 7px 7px 0 var(--gumroad-black);
+}
+
+
+/* 模态的 输入框 */
+.modal {
+  textarea, .multi-select-container, input.metadata-input-text, input[type='date'], input[type='datetime-local'], input[type='text'], input[type='search'], input[type='email'], input[type='password'], input[type='number'] {
+    -webkit-app-region: no-drag;
+    
+    border: 1px solid var(--gumroad-black);
+    border-radius: var(--input-radius);
+
+  }
+
+  textarea:active, .multi-select-container:active, input.metadata-input-text:active, input[type='date']:active, input[type='datetime-local']:active, input[type='text']:active, input[type='search']:active, input[type='email']:active, input[type='password']:active, input[type='number']:active, textarea:focus, .multi-select-container:focus, input.metadata-input-text:focus, input[type='date']:focus, input[type='datetime-local']:focus, input[type='text']:focus, input[type='search']:focus, input[type='email']:focus, input[type='password']:focus, input[type='number']:focus, textarea:focus-visible, .multi-select-container:focus-visible, input.metadata-input-text:focus-visible, input[type='date']:focus-visible, input[type='datetime-local']:focus-visible, input[type='text']:focus-visible, input[type='search']:focus-visible, input[type='email']:focus-visible, input[type='password']:focus-visible, input[type='number']:focus-visible {
+      box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+  }
+}
+
+select, .combobox-button, .dropdown {
+    border: 1px solid var(--gumroad-black);
+    /* box-shadow: var(--input-shadow); */
+    box-shadow: none;
+
+    --input-radius: 4px;
+
+    /* -electron-corner-smoothing: var(--corner-smoothing); */
+    &:hover {
+      box-shadow: none;
+      background-color: none;
+    }
+}
+
+select, .combobox-button, .dropdown {
+  &:active, &:focus, &:focus-visible {
+    box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+  }
+}
+
+
+/* 加粗字体 */
+strong, .cm-strong {
+  font-weight: border;
+  text-decoration: underline;
+  /* color: var(--gumroad-accent) !important; */
+
+  /* padding-bottom: 2px; */
+  /* border-bottom: 1px solid var(--gumroad-black); */
+}
+
+/* 右下角状态栏 */
+
+.status-bar {
+  margin-right: 1em;
+  border: 1px solid var(--gumroad-black);
+  margin-bottom: 1em;
+  border-radius: 4px;
+
+  &:hover {
+    box-shadow: 3px 3px 0 var(--gumroad-black);
+    transform: translate(-1px, -1px);
+  }
+}
+
+/* 元数据 */
+
+.workspace-split.mod-root {
+  .metadata-container {
+    border: 1px solid var(--gumroad-black);
+    padding: 0px;
+
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    border-radius: var(--gumroad-border-radius);
+
+    &:hover {
+      transform: translate(-4px, -2px);
+      box-shadow: 5px 5px 0 var(--gumroad-black);
+      transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+    }
+  }
+
+  /* 标题 */
+  .metadata-properties-heading {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    background-color: var(--gumroad-accent);
+
+    padding: 8px 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--gumroad-black);
+    
+    .metadata-properties-title {
+      color: white !important;
+    }
+  }
+      
+  /* 属性表格 */
+  .metadata-property {
+    border-radius: 0px !important;
+    border-bottom: 1px solid var(--gumroad-black);
+  }
+
+  @media (hover: hover) {
+    .metadata-property:hover {
+        --metadata-divider-color: var(--metadata-divider-color-hover);
+        background-color: var(--metadata-property-background-hover);
+        /* box-shadow: var(--metadata-property-box-shadow-hover);
+        box-shadow: 0 0 0 var(--border-width) var(--background-modifier-border-hover); */
+        box-shadow: 0 0 0 var(--border-width) var(--gumroad-pink);
+        border-radius: var(--metadata-property-radius-hover);
+    }
+
+  }
+
+    .metadata-properties {
+      /* border-bottom: 1px solid var(--gumroad-black); */
+      --metadata-gap: 0px;
+    }
+
+  /* 加号按钮 */
+  .metadata-add-button  {
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+    /* border: 1px solid var(--gumroad-black); */
+
+    svg.svg-icon {
+      fill: var(--gumroad-black);
+      stroke: var(--gumroad-accent);
+
+    }
+  }
+
+}
+
+
+/* 嵌入块 */
+.markdown-source-view.mod-cm6 .edit-block-button {
+  color: var(--gumroad-black);
+
+}
+
+.markdown-embed {
+  border: 1px solid var(--gumroad-black);
+  border-radius: var(--gumroad-border-radius);
+  margin-bottom: 1em;
+
+  /* box-shadow: 5px 5px 0 var(--gumroad-accent); */
+
+  /* &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--gumroad-black);
+  } */
+}
+
+/* 设置标题项 */
+.setting-item-heading {
+  /* border-top: 1px solid var(--setting-items-border-color); */
+  border: none;
+}
+
+/* 设置栏左侧 */
+/* .vertical-tab-header {
+  background-color: var(--gumroad-gray);
+} */
+
+/* .setting-group .setting-item,
+.setting-group .setting-item:first-child,
+.setting-group .setting-item:last-child {
+  padding: 16px;
+} */
+
+.checkbox-container {
+    /* outline-width: 1px; */
+    outline-color: var(--gumroad-black);
+}
+
+/* ==== 特定插件 ==== */
+
+/* Daily Nav bar */
+
+.daily-note-navbar {
+  margin: 5px;
+  gap: 4px;
+}
+
+.templater_div > .setting-item {
+  border-top: 1px solid var(--gumroad-black) !important;
+}
+
+.templater_div {
+  border-top: none;
+  margin-top: 1em;
+}
+
+/* === 普通样式 === */
+
+/* 高亮文字 */
+mark,
+.cm-highlight {
+  border: 1px solid var(--gumroad-white);
+  border-radius: var(--gumroad-border-radius-s);
+  padding: 2px 4px;
+  color: var(--gumroad-black);
+  border-bottom: 2px solid var(--gumroad-yellow);
+}
+
+/* 斜体文本 */
+em, .cm-em {
+  color: var(--gumroad-blue) !important;
+}
+
+/* 标签 */
+a.tag, .cm-hashtag {
+  /* background-color: var(--gumroad-purple); */
+  /* background-color: var(--gumroad-yellow); */
+  border: 1px solid var(--gumroad-black);
+  border-radius: 0px;
+  padding: 0px;
+  color: var(--gumroad-black);
+}
+
+
+/* 表格 */
+.markdown-source-view.mod-cm6 .cm-table-widget th {
+  background-color: var(--gumroad-accent);
+  color: var(--gumroad-white);
+}
+
+
+/* 代码 */
+
+.cm-s-obsidian .cm-inline-code:not(.cm-formatting) {
+  /* 代码颜色 */
+  --code-background: var(--gumroad-orange);
+  padding: 0px;
+  --code-normal: var(--gumroad-white);
+}
+
+
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-line.hr {
+  max-width: 300%;
+  width: 130% !important;
+  margin-left: -15% !important;
+
+  hr {
+    border-top-width: 1px;
+
+  }
+}
+
+/* 嵌入块（回链） */
+.embedded-backlinks {
+  border-top: none;
+}
+
+
+
+/* toggle 块 */
+/* .checkbox-container:after {
+  transition: transform 0.15s ease-in-out, width 0.1s ease-in-out 0.05s, height 0.1s ease-in-out 0.05s, margin-top 0.1s ease-in-out 0.05s, left 0.1s ease-in-out 0.05s, opacity 0.1s ease-in-out 0.05s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.modal .checkbox-container:after {
+  transform: translateX(var(--toggle-border-width));
+}
+
+.modal .checkbox-container.is-enabled:after {
+    transform: translateX(calc(var(--toggle-width) - var(--toggle-thumb-width) - var(--toggle-border-width)));
+} */
+
+
+.markdown-rendered pre {
+  outline: 1px solid var(--gumroad-black);
+}
+
+.nav-files-container {
+  border-bottom: none;
+}
+
+
+.prompt {
+  border-radius: var(--gumroad-border-radius);
+
+  .prompt-input-container {
+    border-bottom: 1px solid var(--gumroad-black);
+  }
+}
