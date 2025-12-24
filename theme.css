@@ -23,6 +23,7 @@ body {
   --gumroad-white: #ffffff;
   --gumroad-gray: #f4f4f0;
   --gumroad-blue: #23a094;
+  --gumroad-green: #6ee05e;
 
   --gumroad-purple: #97a6eb;
   --gumroad-orange: #f57757;
@@ -420,7 +421,13 @@ h6 {
   text-transform: uppercase;
   border-bottom: 2px solid var(--gumroad-black);
   background-color: var(--gumroad-blue);
+
+  --callout-default: var(--gumroad-black);
   color: white;
+
+  .callout-icon .svg-icon {
+    color: white;
+  }
 
   display: flex;
   
@@ -443,11 +450,25 @@ h6 {
 }
 
 /* Callout variants */
-.callout[data-callout="info"],
-.callout[data-callout="todo"] {
+.callout[data-callout="info"] .callout-title ,
+.callout[data-callout="todo"]  .callout-title {
   /* Keep default white bg, yellow title */
+  background-color: var(--gumroad-yellow);
+  color: black;
+  .callout-icon .svg-icon {
+    color: black;
+  }
 }
 
+.callout[data-callout="success"] .callout-title ,
+.callout[data-callout="tip"]  .callout-title {
+  /* Keep default white bg, yellow title */
+  background-color: var(--gumroad-green);
+  color: black;
+  .callout-icon .svg-icon {
+    color: black;
+  }
+}
 .callout[data-callout="important"],
 .callout[data-callout="warning"] {
   border-color: var(--gumroad-black);
