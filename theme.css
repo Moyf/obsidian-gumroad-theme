@@ -241,7 +241,7 @@ body {
 /* The Editor "Page" - Card Style */
 .workspace-leaf .workspace-leaf-content {
   /* 都交给右边来显示 */
-  /* border-left: 1px solid var(--gumroad-black); */
+  border-left: 1px solid var(--gumroad-black);
   border-right: 1px solid var(--gumroad-black);
   border-top: none;
   border-bottom: 1px solid var(--gumroad-black);
@@ -255,7 +255,7 @@ body {
 
 
 .workspace-split.mod-vertical.mod-root .workspace-tabs:last-child .workspace-leaf-content {
-  border-right: none;
+  /* border-right: none; */
 }
 
 /* Inactive leaves - flatter */
@@ -268,13 +268,13 @@ body {
 .mod-left-split .workspace-leaf-content,
 .mod-right-split .workspace-leaf-content {
   border: none;
-  border-right: 1px solid var(--gumroad-black);
+  /* border-right: 1px solid var(--gumroad-black); */
   border-bottom: 1px solid var(--gumroad-black);
   /* margin: 0 !important; */
 }
 
 .mod-top-right-space .workspace-leaf-content {
-  border-left: 1px solid var(--gumroad-black);
+  /* border-left: 1px solid var(--gumroad-black); */
   /* margin: 0 !important; */
 }
 
