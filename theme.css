@@ -922,10 +922,6 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
   border-top-width: 0px;
 }
 
-.workspace-sidedock-vault-profile {
-  border-right: 1px solid var(--gumroad-black);
-}
-
 input[type="radio"], input[type=checkbox] {
   border-width: 1px;
 
