@@ -931,3 +931,17 @@ input[type="radio"], input[type=checkbox] {
   }
 }
 
+
+/* 隐藏滚动条 */
+/* 隐藏所有滚动条 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* 确保内容仍然可以滚动 */
+.markdown-preview-view, 
+.cm-scroller, 
+.workspace-leaf-content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
