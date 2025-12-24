@@ -197,11 +197,11 @@ body {
     }
 }
 
-
+/* 当前激活的标签页 */
 .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active {
   margin-left: 6px !important;
   margin-right: 6px !important;
-  border: 1px solid var(--gumroad-black);
+  border: 2px solid var(--gumroad-black);
   box-shadow: 3px 3px 0 var(--gumroad-black);
   /* margin: 6px !important; */
 }
@@ -402,18 +402,20 @@ h6 {
 /* Callouts - The "Brutalist" Look */
 .markdown-source-view.mod-cm6 .callout {
   background-color: var(--gumroad-white);
-  border: 2px solid var(--gumroad-black);
+  border: 2px solid var(--gumroad-black) !important;
   border-radius: 6px;
   transition: transform var(--transition-duration), box-shadow var(--transition-duration);
   transition-timing-function: ease-out;
 
   padding: 0;
   margin: 5px;
+  box-shadow: 0 0 0 var(--gumroad-black);
+
 }
 
 .markdown-source-view.mod-cm6 .callout:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 var(--gumroad-black);
+  box-shadow: 0.25em 0.25em 0 var(--gumroad-black);
   /* Pure black shadow */
 }
 
@@ -557,7 +559,11 @@ img {
   box-shadow: 5px 5px 0 var(--gumroad-accent);
   max-width: 90%;
 
+  /* 反向回收 */
   &:hover {
+    box-shadow: 0px 0px 0 var(--gumroad-accent);
+    transform: translate(2px, 2px);
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration);
     /* transform: translate(-2px, -2px);
     box-shadow: 7px 7px 0 var(--gumroad-accent); */
     /* transition: transform 0.1s, box-shadow 0.1s;
@@ -922,6 +928,10 @@ body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-p
   border-top-width: 0px;
 }
 
+.workspace-sidedock-vault-profile {
+  border-right: 1px solid var(--gumroad-black);
+}
+
 input[type="radio"], input[type=checkbox] {
   border-width: 1px;
 
@@ -930,6 +940,7 @@ input[type="radio"], input[type=checkbox] {
     box-shadow: 2px 2px 0 var(--gumroad-black);
   }
 }
+
 
 
 /* 隐藏滚动条 */
