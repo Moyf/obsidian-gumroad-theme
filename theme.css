@@ -90,6 +90,10 @@ body {
   
   /* Prompt */
   --prompt-border-color: var(--gumroad-black);
+
+  --checkbox-color: var(--gumroad-black);
+  --checkbox-border-color: var(--gumroad-black);
+  --checkbox-border-color-hover: var(--gumroad-black);
 }
 
 .theme-light {
@@ -232,9 +236,11 @@ body {
   background-color: var(--gumroad-gray);
 }
 
+
 /* The Editor "Page" - Card Style */
 .workspace-leaf .workspace-leaf-content {
-  border-left: 1px solid var(--gumroad-black);
+  /* 都交给右边来显示 */
+  /* border-left: 1px solid var(--gumroad-black); */
   border-right: 1px solid var(--gumroad-black);
   border-top: none;
   border-bottom: 1px solid var(--gumroad-black);
@@ -244,6 +250,11 @@ body {
   /* Reset margin */
   overflow: hidden;
   /* Keep content inside border */
+}
+
+
+.workspace-split.mod-vertical.mod-root .workspace-tabs:last-child .workspace-leaf-content {
+  border-right: none;
 }
 
 /* Inactive leaves - flatter */
@@ -256,9 +267,16 @@ body {
 .mod-left-split .workspace-leaf-content,
 .mod-right-split .workspace-leaf-content {
   border: none;
+  border-right: 1px solid var(--gumroad-black);
   border-bottom: 1px solid var(--gumroad-black);
   /* margin: 0 !important; */
 }
+
+.mod-top-right-space .workspace-leaf-content {
+  border-left: 1px solid var(--gumroad-black);
+  /* margin: 0 !important; */
+}
+
 
 /* 
    === SCROLLBARS === 
@@ -697,6 +715,7 @@ strong, .cm-strong {
         /* box-shadow: var(--metadata-property-box-shadow-hover);
         box-shadow: 0 0 0 var(--border-width) var(--background-modifier-border-hover); */
         box-shadow: 0 0 0 var(--border-width) var(--gumroad-pink);
+        box-shadow: inherit;
         border-radius: var(--metadata-property-radius-hover);
     }
 
@@ -875,3 +894,23 @@ a.tag, .cm-hashtag {
     border-bottom: 1px solid var(--gumroad-black);
   }
 }
+
+
+/* 仓库工具栏 */
+body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
+  border-top-width: 0px;
+}
+
+.workspace-sidedock-vault-profile {
+  border-right: 1px solid var(--gumroad-black);
+}
+
+input[type="radio"], input[type=checkbox] {
+  border-width: 1px;
+
+  &:hover {
+    transform: translate(-1px -1px);
+    box-shadow: 2px 2px 0 var(--gumroad-black);
+  }
+}
+
