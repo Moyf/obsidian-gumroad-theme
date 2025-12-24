@@ -1,0 +1,84 @@
+// Mixins for Brutal Gum Theme
+@use 'variables' as *;
+
+// Button mixin for consistent button styling  
+@mixin button($bg-color: #ffffff, $text-color: #000000, $border-color: #000000) {
+  background: $bg-color;
+  color: $text-color;
+  border: 2px solid $border-color;
+  border-radius: radius(s);
+  padding: space(s) space(m);
+  font-weight: bold;
+  transition: all $transition-duration $transition-ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 $border-color;
+  }
+  
+  &:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 $border-color;
+  }
+}
+
+// Card mixin for consistent card styling
+@mixin card($bg-color: #ffffff, $border-color: #000000) {
+  background: $bg-color;
+  border: 2px solid $border-color;
+  border-radius: radius(s);
+  padding: space(m);
+  
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 $border-color;
+  }
+}
+
+// Input mixin
+@mixin input() {
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: radius(s);
+  padding: space(s) space(m);
+  font-family: inherit;
+  
+  &:focus {
+    outline: none;
+    border-color: #ff90e8;
+    box-shadow: 0 0 0 3px rgba(255, 144, 232, 0.2);
+  }
+}
+
+// Typography mixins
+@mixin heading($size: 1.2em, $weight: bold) {
+  font-size: $size;
+  font-weight: $weight;
+  color: #000000;
+  line-height: 1.2;
+}
+
+// Brutalist shadow effect
+@mixin brutalist-shadow($color: #000000, $offset: 4px) {
+  box-shadow: #{$offset} #{$offset} 0 $color;
+}
+
+// Responsive breakpoints
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 769px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}

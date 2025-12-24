@@ -1,0 +1,23 @@
+{
+  "name": "brutal-gum-theme",
+  "version": "0.1.4",
+  "description": "SCSS build setup for Brutal Gum Obsidian theme",
+  "main": "theme.css",
+  "scripts": {
+    "build": "sass src/main.scss theme.css --no-source-map",
+    "watch": "sass src/main.scss theme.css --watch --no-source-map",
+    "build:dev": "sass src/main.scss theme.css --source-map",
+    "watch:dev": "sass src/main.scss theme.css --watch --source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0"
+  },
+  "keywords": [
+    "obsidian",
+    "theme",
+    "scss",
+    "brutalist"
+  ],
+  "author": "Moy",
+  "license": "MIT"
+}

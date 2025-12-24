@@ -1,0 +1,63 @@
+// Brutal Gum Theme Variables
+// Based on Gumroad's brutalist design
+
+// Color Palette
+$colors: (
+  pink: #ff90e8,
+  yellow: #f7cc2a,
+  black: #000000,
+  white: #ffffff,
+  gray: #f4f4f0,
+  blue: #23a094,
+  purple: #97a6eb,
+  orange: #f57757
+);
+
+@use 'sass:map';
+
+// Helper function to get colors
+@function color($name) {
+  @return map.get($colors, $name);
+}
+
+// Border Radius
+$border-radius: (
+  s: 4px,
+  m: 8px,
+  l: 16px
+);
+
+@function radius($size) {
+  @return map.get($border-radius, $size);
+}
+
+// Transition
+$transition-duration: 0.14s;
+$transition-ease: ease-out;
+
+// Backgrounds
+$bg1: color(white);
+$bg2: color(gray);
+$bg3: color(white);
+
+// Text colors
+$tx1: color(black);
+$tx2: color(black);
+$tx3: #999;
+
+// Highlight
+$hl1: var(--color-accent);
+
+// Spacing system
+$spacing: (
+  xs: 4px,
+  s: 8px,
+  m: 16px,
+  l: 24px,
+  xl: 32px,
+  xxl: 48px
+);
+
+@function space($size) {
+  @return map.get($spacing, $size);
+}

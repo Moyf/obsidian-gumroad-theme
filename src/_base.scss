@@ -1,0 +1,123 @@
+// Base styles for Brutal Gum Theme
+@use 'variables' as *;
+@use 'mixins' as *;
+
+body {
+  // Gumroad Palette
+  --gumroad-pink: #{color(pink)};
+  --gumroad-yellow: #f1f333;
+  --gumroad-yellow: #{color(yellow)};
+  --gumroad-black: #{color(black)};
+  --gumroad-white: #{color(white)};
+  --gumroad-gray: #{color(gray)};
+  --gumroad-blue: #{color(blue)};
+
+  --gumroad-purple: #{color(purple)};
+  --gumroad-orange: #{color(orange)};
+
+  --transition-duration: #{$transition-duration};
+
+  --gumroad-accent: var(--color-accent);
+
+  --gumroad-border-radius-s: #{radius(s)};
+  --gumroad-border-radius-m: #{radius(m)};
+  --gumroad-border-radius-l: #{radius(l)};
+  --gumroad-border-radius: var(--gumroad-border-radius-s);
+
+  --bg1: var(--gumroad-white);
+  --bg2: var(--gumroad-gray);
+  --bg3: var(--gumroad-white);
+
+  --tx1: var(--gumroad-black);
+  --tx2: var(--gumroad-black);
+  --tx3: #999;
+
+  --hl1: var(--gumroad-accent);
+
+  // Borders
+  --border-width: 1px;
+  // --interactive-accent: var(--gumroad-black);
+  --interactive-accent-hover: var(--gumroad-accent);
+
+  --tab-outline-color: var(--gumroad-black);
+
+  // Layout
+  --tab-radius: 0px;
+  --window-gap: 10px;
+  // Gap between panes for that card look
+
+  --header-height: 50px;
+  --callout-title-weight: 400;
+
+  --background-modifier-border: var(--gumroad-black);
+  --background-modifier-border-focus: var(--gumroad-accent);
+
+  --dropdown-background-hover: transparent;
+  --input-shadow-hover: none;
+
+  --background-primary-alt: var(--background-primary);
+
+  // 设置
+  --setting-items-border-color: var(--gumroad-black);
+  --setting-items-border-width: 1px;
+  --setting-items-radius: 8px;
+
+  // --setting-items-padding: 0px;
+
+  --toggle-radius: var(--gumroad-border-radius-s);
+  --toggle-thumb-radius: var(--gumroad-border-radius-s);
+
+  --radius-s: 0px;
+
+  --tag-radius: 0px;
+
+  --nav-item-weight-active: 700;
+  
+  // Prompt
+  --prompt-border-color: var(--gumroad-black);
+
+  // Color headings
+  --h1-color: var(--gumroad-pink);
+  --h2-color: var(--gumroad-blue);
+  --h5-color: var(--gumroad-yellow);
+  --h3-color: var(--gumroad-orange);
+  --h4-color: var(--gumroad-purple);
+}
+
+.theme-light {
+  // Override essentials
+  --background-primary: var(--bg1);
+  --background-secondary: var(--bg2);
+  --background-secondary-alt: var(--bg2);
+  // Make sidebars distinct gray
+
+  --text-normal: var(--tx1);
+  --text-muted: var(--tx3);
+  --text-faint: #999;
+
+  // Borders & Dividers
+  --divider-color: var(--gumroad-black);
+  --prompt-border: 2px solid var(--gumroad-black);
+  --modal-border: 2px solid var(--gumroad-black);
+
+  // Inputs
+  --input-radius: 0px;
+  --input-radius: var(--gumroad-border-radius);
+  --input-border-width: 1px;
+}
+
+.theme-dark {
+  --bg1: var(--gumroad-black);
+  --bg2: #1a1a1a;
+  --gumroad-black: #dadada;
+  --gumroad-white: #121212;
+  --gumroad-gray: #1a1a1a;
+
+  --tx3: #999;
+  // --text-faint: #666;
+
+  // Borders & Dividers
+  --divider-color: var(--gumroad-white);
+  --prompt-border: 2px solid var(--gumroad-white);
+  --modal-border: 2px solid var(--gumroad-white);
+}
