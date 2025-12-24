@@ -1,7 +1,7 @@
 {
   "name": "Brutal Gum",
+  "version": "0.1.5",
+  "minAppVersion": "1.10.0",
   "author": "Moy",
-  "repo": "Moyf/obsidian-gumroad-theme",
-  "screenthot": "screenshot.png",
-  "modes": ["dark", "light"]
+  "authorUrl": "https://github.com/Moyf"
 }

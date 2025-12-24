@@ -22,10 +22,13 @@ body {
   --gumroad-black: #000000;
   --gumroad-white: #ffffff;
   --gumroad-gray: #f4f4f0;
-  --gumroad-blue: #23a094;
+  --gumroad-cyan: #23a094;
+  --gumroad-blue: #96b4f1;
   --gumroad-green: #6ee05e;
 
-  --gumroad-purple: #97a6eb;
+  --gumroad-red: #d24129;
+
+  --gumroad-purple: #c397eb;
   --gumroad-orange: #f57757;
 
 
@@ -95,6 +98,10 @@ body {
   --checkbox-color: var(--gumroad-black);
   --checkbox-border-color: var(--gumroad-black);
   --checkbox-border-color-hover: var(--gumroad-black);
+
+  --code-background: var(--background-secondary);
+
+  --pill-radius: var(--gumroad-border-radius-s);
 }
 
 .theme-light {
@@ -145,7 +152,7 @@ h1, .markdown-source-view.mod-cm6 .cm-header-1 {
 
 body {
   --h1-color: var(--gumroad-pink);
-  --h2-color: var(--gumroad-blue);
+  --h2-color: var(--gumroad-cyan);
   --h5-color: var(--gumroad-yellow);
   --h3-color: var(--gumroad-orange);
   --h4-color: var(--gumroad-purple);
@@ -204,6 +211,28 @@ body {
   border: 2px solid var(--gumroad-black);
   box-shadow: 3px 3px 0 var(--gumroad-black);
   /* margin: 6px !important; */
+}
+
+
+/* 垂直的激活项 */
+.vertical-tab-header-group {
+  border-bottom: 1px solid var(--gumroad-black);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.vertical-tab-nav-item.tappable.is-active {
+  border: 2px solid var(--gumroad-black);
+  box-shadow: 3px 3px 0 var(--gumroad-black);
+
+  /* Hover 是悬浮，active 是按下 */
+  &:active {
+    box-shadow: 0px 0px 0 var(--gumroad-black);
+    transform: translate(2px, 2px);
+  }
+
 }
 
 .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active::before, .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active::after {
@@ -422,7 +451,7 @@ h6 {
 .callout-title {
   text-transform: uppercase;
   border-bottom: 2px solid var(--gumroad-black);
-  background-color: var(--gumroad-blue);
+  background-color: var(--gumroad-cyan);
 
   --callout-default: var(--gumroad-black);
   color: white;
@@ -572,6 +601,12 @@ img {
   }
 }
 
+/* Bases 里的 */
+.formula-editor img {
+  border: none;
+  box-shadow: none;
+}
+
 /* UI Controls */
 button:not(.clickable-icon) {
   border: 1px solid var(--gumroad-black);
@@ -617,37 +652,6 @@ button.mod-cta:active {
 }
 
 
-/* 模态窗口 */
-.modal-container.mod-dim .modal {
-  --modal-radius: var(--gumroad-border-radius);
-  --modal-border-color: var(--gumroad-black);
-  border: 1px solid var(--gumroad-black);
-  border-radius: 8px;
-
-  /* box-shadow: 7px 7px 0 var(--gumroad-black); */
-  /* margin: 0.5em; */
-
-}
-
-.modal-container.mod-dim .modal:not(.mod-settings) {
-  box-shadow: 7px 7px 0 var(--gumroad-black);
-}
-
-
-/* 模态的 输入框 */
-.modal {
-  textarea, .multi-select-container, input.metadata-input-text, input[type='date'], input[type='datetime-local'], input[type='text'], input[type='search'], input[type='email'], input[type='password'], input[type='number'] {
-    -webkit-app-region: no-drag;
-    
-    border: 1px solid var(--gumroad-black);
-    border-radius: var(--input-radius);
-
-  }
-
-  textarea:active, .multi-select-container:active, input.metadata-input-text:active, input[type='date']:active, input[type='datetime-local']:active, input[type='text']:active, input[type='search']:active, input[type='email']:active, input[type='password']:active, input[type='number']:active, textarea:focus, .multi-select-container:focus, input.metadata-input-text:focus, input[type='date']:focus, input[type='datetime-local']:focus, input[type='text']:focus, input[type='search']:focus, input[type='email']:focus, input[type='password']:focus, input[type='number']:focus, textarea:focus-visible, .multi-select-container:focus-visible, input.metadata-input-text:focus-visible, input[type='date']:focus-visible, input[type='datetime-local']:focus-visible, input[type='text']:focus-visible, input[type='search']:focus-visible, input[type='email']:focus-visible, input[type='password']:focus-visible, input[type='number']:focus-visible {
-      box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
-  }
-}
 
 select, .combobox-button, .dropdown {
     border: 1px solid var(--gumroad-black);
@@ -738,11 +742,15 @@ strong, .cm-strong {
   @media (hover: hover) {
     .metadata-property:hover {
         --metadata-divider-color: var(--metadata-divider-color-hover);
-        background-color: var(--metadata-property-background-hover);
+        /* 不改背景色 */
+        /* background-color: var(--metadata-property-background-hover); */
         /* box-shadow: var(--metadata-property-box-shadow-hover);
         box-shadow: 0 0 0 var(--border-width) var(--background-modifier-border-hover); */
-        box-shadow: 0 0 0 var(--border-width) var(--gumroad-pink);
-        box-shadow: inherit;
+
+        /* 不改边框 */
+        /* box-shadow: 0 0 0 var(--border-width) var(--gumroad-pink); */
+        /* box-shadow: inherit; */
+        
         border-radius: var(--metadata-property-radius-hover);
     }
 
@@ -766,6 +774,12 @@ strong, .cm-strong {
     }
   }
 
+}
+
+/* Bases 的属性表格 */
+.metadata-property.bases-sort-property-container,
+.filter-expression.metadata-property {
+  border-radius: 0px;
 }
 
 
@@ -810,7 +824,17 @@ strong, .cm-strong {
     outline-color: var(--gumroad-black);
 }
 
-/* ==== 特定插件 ==== */
+/* ! ==== 特定插件 ==== */
+
+/* FolderNotes */
+.fn-is-active {
+  border: 2px solid var(--gumroad-black) !important;
+  box-shadow: 3px 3px 0 var(--gumroad-black);
+  font-weight: 800;
+  transform: translate(-1px, -1px);
+
+  background-color: var(--gumroad-white) !important;
+}
 
 /* Daily Nav bar */
 
@@ -818,7 +842,18 @@ strong, .cm-strong {
   margin: 5px;
   gap: 4px;
 }
+/* Linter */
+.linter-border-bottom {
+    border-top: 1px solid var(--background-modifier-border);
+}
 
+.setting-item-description code {
+  background-color: var(--gumroad-orange);
+  border: none;
+  color: white;
+}
+
+/* TP */
 .templater_div > .setting-item {
   border-top: 1px solid var(--gumroad-black) !important;
 }
@@ -826,6 +861,11 @@ strong, .cm-strong {
 .templater_div {
   border-top: none;
   margin-top: 1em;
+}
+
+/* Reminder */
+.reminder-list-item.svelte-15dajvg {
+    margin-bottom: 5px;
 }
 
 /* === 普通样式 === */
@@ -842,7 +882,7 @@ mark,
 
 /* 斜体文本 */
 em, .cm-em {
-  color: var(--gumroad-blue) !important;
+  color: var(--gumroad-cyan) !important;
 }
 
 /* 标签 */
@@ -868,7 +908,9 @@ a.tag, .cm-hashtag {
 .cm-s-obsidian .cm-inline-code:not(.cm-formatting) {
   /* 代码颜色 */
   --code-background: var(--gumroad-orange);
-  padding: 0px;
+  /* padding: 0px; */
+  
+  padding: 0em 0.2em;
   --code-normal: var(--gumroad-white);
 }
 
@@ -914,8 +956,46 @@ a.tag, .cm-hashtag {
 }
 
 
+/* ! 模态窗口 */
+.modal-container.mod-dim .modal {
+  --modal-radius: var(--gumroad-border-radius);
+  --modal-border-color: var(--gumroad-black);
+  border: 1px solid var(--gumroad-black);
+  border-radius: 8px;
+
+  /* box-shadow: 7px 7px 0 var(--gumroad-black); */
+  /* margin: 0.5em; */
+
+}
+
+.modal-container.mod-dim .modal:not(.mod-settings) {
+  box-shadow: 7px 7px 0 var(--gumroad-black);
+}
+
+
+/* 模态的 输入框 */
+.modal {
+  textarea, .multi-select-container, input.metadata-input-text, input[type='date'], input[type='datetime-local'], input[type='text'], input[type='search'], input[type='email'], input[type='password'], input[type='number'] {
+    -webkit-app-region: no-drag;
+    
+    border: 1px solid var(--gumroad-black);
+    border-radius: var(--input-radius);
+
+  }
+
+  textarea:active, .multi-select-container:active, input.metadata-input-text:active, input[type='date']:active, input[type='datetime-local']:active, input[type='text']:active, input[type='search']:active, input[type='email']:active, input[type='password']:active, input[type='number']:active, textarea:focus, .multi-select-container:focus, input.metadata-input-text:focus, input[type='date']:focus, input[type='datetime-local']:focus, input[type='text']:focus, input[type='search']:focus, input[type='email']:focus, input[type='password']:focus, input[type='number']:focus, textarea:focus-visible, .multi-select-container:focus-visible, input.metadata-input-text:focus-visible, input[type='date']:focus-visible, input[type='datetime-local']:focus-visible, input[type='text']:focus-visible, input[type='search']:focus-visible, input[type='email']:focus-visible, input[type='password']:focus-visible, input[type='number']:focus-visible {
+      box-shadow: 0 0 0 var(--input-border-width-focus) var(--background-modifier-border-focus);
+  }
+}
+
+/* ! 弹出框 */
+
 .prompt {
   border-radius: var(--gumroad-border-radius);
+  top: 95px;
+
+  box-shadow: 4px 4px 0 var(--gumroad-accent);
+  box-shadow: 7px 7px 0 var(--gumroad-black);
 
   .prompt-input-container {
     border-bottom: 1px solid var(--gumroad-black);
