@@ -102,6 +102,11 @@ body {
   --code-background: var(--background-secondary);
 
   --pill-radius: var(--gumroad-border-radius-s);
+
+  /* 悬浮选中项的边框 */
+  /* 也会影响标签页间隔 */
+  /* 甚至影响选项框（Toggle）的背景色……范围太大了，还是先不动吧！ */
+  /* --background-modifier-border-hover: var(--gumroad-black); */
 }
 
 .theme-light {
@@ -127,11 +132,28 @@ body {
 }
 
 .theme-dark {
-  --bg1: var(--gumroad-black);
-  --bg2: #1a1a1a;
+  --bg1: #030303;
+  --bg2: #191919;
+
+  /* 还是要区分一些 */
+  --bg2: #121212;
   --gumroad-black: #dadada;
-  --gumroad-white: #121212;
-  --gumroad-gray: #1a1a1a;
+  --gumroad-white: #000000;
+  --gumroad-gray: #070707;
+
+  /* 参考： */
+  /* 
+    --background-primary: var(--color-base-00);
+    --background-primary-alt: var(--color-base-10);
+    --background-secondary: var(--color-base-20);
+    --background-modifier-hover: 
+   */
+  /* --color-base-00: #000000;
+  --color-base-20: #050505; */
+  
+  --background-primary: var(--bg1);
+  --background-secondary: var(--bg2);
+  --background-secondary-alt: var(--bg2);
 
   --tx3: #999;
   /* --text-faint: #666; */
@@ -146,12 +168,13 @@ body {
 
 
 /* 多彩标题 */
+/* 优先 */
 h1, .markdown-source-view.mod-cm6 .cm-header-1 {
-    color: var(--gumroad-pink);
+    color: var(--color-accent, var(--gumroad-pink));
 }
 
 body {
-  --h1-color: var(--gumroad-pink);
+  --h1-color: var(--color-accent, var(--gumroad-pink));
   --h2-color: var(--gumroad-cyan);
   --h5-color: var(--gumroad-yellow);
   --h3-color: var(--gumroad-orange);
@@ -211,6 +234,11 @@ body {
   border: 2px solid var(--gumroad-black);
   box-shadow: 3px 3px 0 var(--gumroad-black);
   /* margin: 6px !important; */
+
+  &:active {
+    box-shadow: 0px 0px 0 var(--gumroad-black);
+    transform: translate(2px, 2px);
+  }
 }
 
 
@@ -233,6 +261,29 @@ body {
     transform: translate(2px, 2px);
   }
 
+}
+
+
+/* 社区 */
+.community-item.tappable {
+
+    &:hover {
+      border-color: var(--gumroad-accent);
+      border-width: 1px;
+      /* outline: 2px solid var(--gumroad-accent); */
+    }
+
+}
+
+.community-item.tappable.is-selected {
+    border: 2px solid var(--gumroad-black) !important;
+    box-shadow: 3px 3px 0 var(--gumroad-black);
+
+    /* Hover 是悬浮，active 是按下 */
+    &:active {
+      box-shadow: 0px 0px 0 var(--gumroad-black);
+      transform: translate(2px, 2px);
+    }
 }
 
 .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active::before, .workspace-split.mod-root .workspace-tab-header-container .workspace-tab-header.is-active::after {
@@ -429,7 +480,11 @@ h6 {
 }
 
 /* Callouts - The "Brutalist" Look */
+.callout,
 .markdown-source-view.mod-cm6 .callout {
+  --p-spacing: 0.5rem;
+  --callout-padding: var(--size-4-2) var(--size-4-2) var(--size-4-2) var(--size-4-4);
+
   background-color: var(--gumroad-white);
   border: 2px solid var(--gumroad-black) !important;
   border-radius: 6px;
@@ -437,11 +492,23 @@ h6 {
   transition-timing-function: ease-out;
 
   padding: 0;
-  margin: 5px;
+  margin: var(--size-4-1);
   box-shadow: 0 0 0 var(--gumroad-black);
 
+  margin-bottom: var(--size-4-4);
 }
 
+/* 右上角编辑按钮 */
+.cm-embed-block  .edit-block-button {
+  right: 15px !important;
+  top: 10px !important;
+}
+.cm-callout:hover .edit-block-button {
+  right: 5px;
+  transition: right 0.2s ease-out;
+}
+
+.callout:hover,
 .markdown-source-view.mod-cm6 .callout:hover {
   transform: translate(-2px, -2px);
   box-shadow: 0.25em 0.25em 0 var(--gumroad-black);
@@ -481,13 +548,32 @@ h6 {
 }
 
 /* Callout variants */
-.callout[data-callout="info"] .callout-title ,
-.callout[data-callout="todo"]  .callout-title {
-  /* Keep default white bg, yellow title */
-  background-color: var(--gumroad-yellow);
-  color: black;
-  .callout-icon .svg-icon {
+
+.callout[data-callout="note"],
+.callout[data-callout="gpt"],
+.callout[data-callout="quote"],
+.callout[data-callout="code"] {
+    .callout-title {
+    /* Keep default white bg, yellow title */
+    background-color: var(--gumroad-blue);
     color: black;
+    .callout-icon .svg-icon {
+      color: black;
+    }
+  }
+}
+
+.callout[data-callout="bug"],
+.callout[data-callout="question"],
+.callout[data-callout="info"],
+.callout[data-callout="todo"] {
+    .callout-title {
+    /* Keep default white bg, yellow title */
+    background-color: var(--gumroad-yellow);
+    color: black;
+    .callout-icon .svg-icon {
+      color: black;
+    }
   }
 }
 
@@ -500,14 +586,27 @@ h6 {
     color: black;
   }
 }
-.callout[data-callout="important"],
-.callout[data-callout="warning"] {
-  border-color: var(--gumroad-black);
+
+
+.callout[data-callout="failure"] .callout-title {
+  /* Keep default white bg, yellow title */
+  background-color: var(--gumroad-purple);
+  color: black;
+  .callout-icon .svg-icon {
+    color: black;
+  }
 }
 
-.callout[data-callout="important"] .callout-title,
-.callout[data-callout="warning"] .callout-title {
-  background-color: var(--gumroad-accent);
+.callout[data-callout="danger"],
+.callout[data-callout="important"],
+.callout[data-callout="warning"] {
+  .callout-title {
+    background-color: var(--gumroad-red);
+    color: white;
+    .callout-icon .svg-icon {
+      color: white;
+    }
+  }
 }
 
 /* Quote */
@@ -569,10 +668,13 @@ a:hover,
   padding: var(--size-4-1) var(--size-4-2);
   position: relative;
 
-  padding-inline-start: var(--size-4-8);
+  /* 起始位置 */
+  /* padding-inline-start: var(--size-4-8); */
+  padding-inline-start: 2em;
 }
 
 blockquote::before {
+  /* 哎呀这个会随着字体变化呢！ */
   content: "“";
   font-size: 4em;
   position: absolute;
@@ -588,11 +690,20 @@ img {
   box-shadow: 5px 5px 0 var(--gumroad-accent);
   max-width: 90%;
 
+  margin: 0.25em 0 0.5em;
+
+  transition: transform 0.1s, box-shadow 0.1s;
+  transition-timing-function: ease-out;
+
   /* 反向回收 */
   &:hover {
     box-shadow: 0px 0px 0 var(--gumroad-accent);
     transform: translate(2px, 2px);
+
+    /* 加在这里的话，只会在 hover 上去的时候生效，移开不生效 */
+    /* 所以要加在基础部分 */
     transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+
     /* transform: translate(-2px, -2px);
     box-shadow: 7px 7px 0 var(--gumroad-accent); */
     /* transition: transform 0.1s, box-shadow 0.1s;
@@ -607,13 +718,21 @@ img {
   box-shadow: none;
 }
 
+/* Callout 里的 */
+.callout img {
+  box-shadow: none;
+  transform: none;
+  /* border-width: 1px; */
+  /* max-width: 100% !important; */
+}
+
 /* UI Controls */
 button:not(.clickable-icon) {
   border: 1px solid var(--gumroad-black);
   border-radius: 4px;
   background-color: var(--gumroad-white);
   color: var(--gumroad-black);
-  font-weight: 600;
+  /* font-weight: 600; */
   transition: transform var(--transition-duration), box-shadow var(--transition-duration);
   transition-timing-function: ease-out;
 
@@ -786,7 +905,10 @@ strong, .cm-strong {
 /* 嵌入块 */
 .markdown-source-view.mod-cm6 .edit-block-button {
   color: var(--gumroad-black);
+}
 
+.theme-dark .markdown-source-view.mod-cm6 .edit-block-button {
+  color: var(--gumroad-white);
 }
 
 .markdown-embed {
@@ -825,6 +947,60 @@ strong, .cm-strong {
 }
 
 /* ! ==== 特定插件 ==== */
+
+/* ! Export Image */
+.export-image-preview-out {
+  --background-modifier-border: #CCC;
+
+}
+
+/* ! Notebook Navigator */
+body {
+  /* 原本用的是 modifier-border，改成纯黑了所以背景也纯黑了 */
+  --nn-theme-file-tag-bg: var(--background-secondary);
+
+}
+
+/* Notetoolbar */
+
+
+/* Callouts - The "Brutalist" Look */
+.callout.cg-note-toolbar-callout,
+.markdown-source-view.mod-cm6 .callout.cg-note-toolbar-callout {
+  /* border: 2px solid var(--gumroad-black) !important; */
+  border-width: 1px !important;
+}
+
+.cg-note-toolbar-container[data-tbar-position="text"] {
+  --cg-nt-tbar-text-shadow: 3px 3px 0 var(--gumroad-black) !important;
+
+    .callout.cg-note-toolbar-callout {
+      box-shadow: 3px 3px 0 var(--gumroad-black) !important;
+      border: 2px solid var(--gumroad-black) !important;
+    }
+
+}
+
+
+/* .callout[data-callout="note-toolbar"], */
+.cg-note-toolbar-container[data-tbar-position="text"] .callout[data-callout="note-toolbar"] {
+    & .callout-content {
+      
+        a, span.external-link {
+            outline: 2px solid var(--gumroad-black);
+            box-shadow: none;
+            color: black;
+
+        }
+    }
+}
+
+/* Ember */
+.ember-rank-badge {
+  background-color: transparent;
+  border: 1px solid var(--gumroad-black);
+  color: var(--gumroad-black);
+}
 
 /* FolderNotes */
 .fn-is-active {
@@ -904,7 +1080,7 @@ a.tag, .cm-hashtag {
 
 
 /* 代码 */
-
+.cm-s-obsidian .cm-inline-code.cm-formatting ~ .cm-inline-code:not(.cm-formatting),
 .cm-s-obsidian .cm-inline-code:not(.cm-formatting) {
   /* 代码颜色 */
   --code-background: var(--gumroad-orange);
@@ -1035,4 +1211,9 @@ input[type="radio"], input[type=checkbox] {
 .workspace-leaf-content {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* 隐藏 External */
+.cm-formatting.cm-url.external-link {
+  display: none;
 }
