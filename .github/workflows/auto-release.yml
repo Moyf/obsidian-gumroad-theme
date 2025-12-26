@@ -1,0 +1,143 @@
+name: 🚀 Auto Release on Version Bump
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'manifest.json'
+      - 'theme.css'
+
+jobs:
+  check-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Check for version change
+        id: version_check
+        run: |
+          # 获取 manifest.json 中的版本号
+          NEW_VERSION=$(jq -r '.version' manifest.json)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+          # 获取上一个版本的 manifest.json
+          git show HEAD~1:manifest.json > /tmp/old_manifest.json 2>/dev/null || echo "{}" > /tmp/old_manifest.json
+          OLD_VERSION=$(jq -r '.version' /tmp/old_manifest.json)
+          echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
+
+          # 检查版本是否更新
+          if [ "$NEW_VERSION" = "$OLD_VERSION" ]; then
+            echo "version_changed=false" >> $GITHUB_OUTPUT
+            echo "❌ 版本号未变更 ($OLD_VERSION)"
+          else
+            echo "version_changed=true" >> $GITHUB_OUTPUT
+            echo "✅ 版本号已更新: $OLD_VERSION → $NEW_VERSION"
+          fi
+
+      - name: 📝 Generate Release Notes
+        id: release_notes
+        if: steps.version_check.outputs.version_changed == 'true'
+        run: |
+          # 获取提交历史
+          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 2>/dev/null || git rev-list --max-parents=0 HEAD)..HEAD > /tmp/changes.txt
+
+          # 读取主题名称
+          THEME_NAME=$(jq -r '.name' manifest.json)
+          VERSION=$(jq -r '.version' manifest.json)
+
+          # 生成发布说明
+          cat > /tmp/release_body.md << EOF
+          ## 🎉 $THEME_NAME v$VERSION
+
+          ### ✨ 本次更新内容
+
+          $(cat /tmp/changes.txt)
+
+          ### 📝 变更文件
+
+          - \`manifest.json\` - 版本更新
+          - \`theme.css\` - 样式优化
+
+          ### 🚀 使用方法
+
+          1. 下载 \`theme.css\` 文件
+          2. 在 Obsidian 设置中选择主题
+          3. 重启 Obsidian 应用新主题
+
+          ---
+
+          *发布于 $(date '+%Y-%m-%d %H:%M:%S')*
+          EOF
+
+          # 读取到环境变量
+          echo "body<<EOF" >> $GITHUB_ENV
+          cat /tmp/release_body.md >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: 🏷️ Create Tag
+        id: create_tag
+        if: steps.version_check.outputs.version_changed == 'true'
+        run: |
+          VERSION=$(jq -r '.version' manifest.json)
+          TAG_NAME="v$VERSION"
+
+          # 检查标签是否已存在
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+            echo "⚠️ 标签 $TAG_NAME 已存在"
+          else
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+            git push origin "$TAG_NAME"
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+            echo "✅ 创建标签: $TAG_NAME"
+          fi
+
+      - name: 📦 Create Release
+        id: create_release
+        if: steps.version_check.outputs.version_changed == 'true' && steps.create_tag.outputs.tag_exists == 'false'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version_check.outputs.new_version }}
+          release_name: Release v${{ steps.version_check.outputs.new_version }}
+          body: ${{ env.body }}
+          draft: false
+          prerelease: false
+
+      - name: 📤 Upload Theme Files
+        if: steps.create_release.outputs.upload_url != ''
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./theme.css
+          asset_name: theme.css
+          asset_content_type: text/css
+
+      - name: 📤 Upload Manifest
+        if: steps.create_release.outputs.upload_url != ''
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./manifest.json
+          asset_name: manifest.json
+          asset_content_type: application/json
+
+      - name: 📢 Notify Completion
+        if: steps.create_release.outputs.upload_url != ''
+        run: |
+          echo "✅ 自动发布完成！"
+          echo "📦 版本: v${{ steps.version_check.outputs.new_version }}"
+          echo "🔗 Release URL: ${{ steps.create_release.outputs.html_url }}"

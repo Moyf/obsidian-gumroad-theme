@@ -1,0 +1,216 @@
+name: 🎯 Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 0.1.7)'
+        required: true
+        type: string
+      release_notes:
+        description: 'Release notes (optional, leave empty to auto-generate)'
+        required: false
+        type: string
+      is_prerelease:
+        description: 'Is this a pre-release?'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  manual-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Validate version format
+        id: validate
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ 版本号格式无效！请使用语义化版本 (如: 0.1.7)"
+            exit 1
+          fi
+          echo "✅ 版本号格式有效: $VERSION"
+
+      - name: 📝 Update manifest.json
+        id: update_manifest
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+
+          # 备份原文件
+          cp manifest.json manifest.json.bak
+
+          # 更新版本号
+          jq ".version = \"$VERSION\"" manifest.json > manifest.json.tmp
+          mv manifest.json.tmp manifest.json
+
+          echo "old_version=$(jq -r '.version' manifest.json.bak)" >> $GITHUB_OUTPUT
+          echo "new_version=$VERSION" >> $GITHUB_OUTPUT
+
+          echo "✅ manifest.json 版本更新: $(jq -r '.version' manifest.json.bak) → $VERSION"
+
+      - name: 📝 Generate Release Notes
+        id: generate_notes
+        run: |
+          THEME_NAME=$(jq -r '.name' manifest.json)
+          VERSION="${{ github.event.inputs.version }}"
+          CUSTOM_NOTES="${{ github.event.inputs.release_notes }}"
+
+          if [ -n "$CUSTOM_NOTES" ]; then
+            # 使用用户自定义的发布说明
+            cat > /tmp/release_body.md << EOF
+          ## 🎉 $THEME_NAME v$VERSION
+
+          ### 📝 更新说明
+
+          $CUSTOM_NOTES
+
+          ### 📦 包含文件
+
+          - \`theme.css\` - 主题样式文件
+          - \`manifest.json\` - 主题配置
+
+          ### 🔗 快速使用
+
+          1. 下载 \`theme.css\`
+          2. 在 Obsidian 设置 → 外观 → 主题 → 管理 → 手动安装主题
+          3. 选择并应用主题
+
+          ---
+
+          *发布于 $(date '+%Y-%m-%d %H:%M:%S')*
+          EOF
+          else
+            # 自动生成发布说明（基于最近的提交）
+            git fetch --unshallow 2>/dev/null || true
+
+            # 获取最近的标签
+            LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+            if [ -n "$LAST_TAG" ]; then
+              CHANGES=$(git log --pretty=format:"- %s" "$LAST_TAG"..HEAD 2>/dev/null || git log --pretty=format:"- %s" -5)
+            else
+              CHANGES=$(git log --pretty=format:"- %s" -10)
+            fi
+
+            if [ -z "$CHANGES" ]; then
+              CHANGES="- 优化和改进"
+            fi
+
+            cat > /tmp/release_body.md << EOF
+          ## 🎉 $THEME_NAME v$VERSION
+
+          ### ✨ 本次更新内容
+
+          $CHANGES
+
+          ### 📦 包含文件
+
+          - \`theme.css\` - 主题样式文件
+          - \`manifest.json\` - 主题配置
+
+          ### 🔗 快速使用
+
+          1. 下载 \`theme.css\`
+          2. 在 Obsidian 设置 → 外观 → 主题 → 管理 → 手动安装主题
+          3. 选择并应用主题
+
+          ---
+
+          *发布于 $(date '+%Y-%m-%d %H:%M:%S')*
+          EOF
+          fi
+
+          # 读取到环境变量
+          echo "body<<EOF" >> $GITHUB_ENV
+          cat /tmp/release_body.md >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: 🔐 Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: 🏷️ Create and Push Tag
+        id: create_tag
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          TAG_NAME="v$VERSION"
+
+          # 检查标签是否已存在
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "⚠️ 标签 $TAG_NAME 已存在，将覆盖"
+            git tag -f -a "$TAG_NAME" -m "Release $TAG_NAME"
+          else
+            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+          fi
+
+          git push origin "$TAG_NAME" --force
+          echo "✅ 标签 $TAG_NAME 已创建并推送"
+
+      - name: 📦 Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          release_name: Release v${{ github.event.inputs.version }}
+          body: ${{ env.body }}
+          draft: false
+          prerelease: ${{ github.event.inputs.is_prerelease }}
+
+      - name: 📤 Upload Theme Files
+        if: success()
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./theme.css
+          asset_name: theme.css
+          asset_content_type: text/css
+
+      - name: 📤 Upload Manifest
+        if: success()
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./manifest.json
+          asset_name: manifest.json
+          asset_content_type: application/json
+
+      - name: 📤 Upload Package.json (Optional)
+        if: success()
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./package.json
+          asset_name: package.json
+          asset_content_type: application/json
+
+      - name: 🎉 Notify Completion
+        if: success()
+        run: |
+          echo ""
+          echo "========================================"
+          echo "✅ 手动发布成功完成！"
+          echo "========================================"
+          echo "📦 版本: v${{ github.event.inputs.version }}"
+          echo "🔗 Release URL: ${{ steps.create_release.outputs.html_url }}"
+          echo "🏷️ Tag: v${{ github.event.inputs.version }}"
+          echo "📦 Prerelease: ${{ github.event.inputs.is_prerelease }}"
+          echo "========================================"
+
+      - name: ❌ Notify Failure
+        if: failure()
+        run: |
+          echo "❌ 发布失败！请检查错误信息。"
+          exit 1
