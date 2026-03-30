@@ -5,14 +5,142 @@
 
 /* Style Settings 备选 */
 
-/* 1. 图片是否自带边缘 */
+/* 1. 图片是否自带边缘/阴影 */
 /* 2. 是否覆盖主题色（Accent color） */
 /* 3. 多彩标题 */
 /* 4. 双栏属性？ */
 
+/* 5. 全长的分隔线 */
+
 /* 插件适配 */
+
+/* Hometab */
+.suggester-additional-info,
+.home-tab-suggestion-container {
+  border-top-color: var(--gumroad-black);
+}
+
 /* NTB */
+
+.note-toolbar-setting-item-controls {
+    & .setting-item {
+      border-left: none;
+      border-right: none;
+     }}
+
+.modal:not(.mod-settings) .setting-item:not(.setting-item-heading):first-child {
+  border: none;
+}
+
+/* BRAT */ 
+.modal:not(.mod-settings) .setting-item:not(.setting-item-heading) {
+  border-width: 0px;
+}
+
+
 /* NN */
+
+/* 移动端 */
+
+/* 2026-03-30 移动端适配 */
+.is-mobile {
+  --touch-radius-xs: 4px;
+  --interactive-normal: var(--background-secondary) !important;
+  --nav-item-radius: 0px !important;
+
+  /* 导航栏按钮 圆角 */
+  --touch-radius-xl: 4px !important;
+  --touch-radius-l: 0px !important;
+  --touch-radius-s: 0px !important;
+  --touch-radius-xxs: 0px !important;
+
+  --input-radius: 4px !important;
+
+  --view-header-action-radius: 2px !important;
+
+  /* 文件列表——标签页 */
+  .workspace-drawer-tab-select .workspace-tab-header-inner {
+    margin: 8px 0;
+  }
+
+  /* 选中项 */
+  .workspace-drawer-tab-options:not(.has-swipe) .workspace-tab-header.is-active .workspace-tab-header-inner {
+    border: 1px solid var(--gumroad-black);
+  }
+
+  .workspace-leaf-content {
+    border-right: none !important;
+
+  }
+
+  .workspace-leaf .workspace-leaf-content {
+    border-top: 1px solid var(--gumroad-black) !important;
+  }
+
+  /* 侧边标题栏 */
+  .view-header, .nav-header  {
+    border-bottom: none !important;
+  }
+
+  /* NN 工具栏 */
+  .nn-pane-bottom-toolbar {
+    padding: 8px 0 !important;
+  }
+  /* NN 搜索 */
+  .nn-search-input {
+    border-radius: 4px !important;
+  }
+
+}
+
+.is-phone .mod-raised {
+  background: none;
+}
+
+/* 渐变遮罩 */
+.is-mobile.is-floating-nav .workspace-drawer .workspace-leaf-content:after {
+  background: none;
+}
+
+.is-mobile.is-floating-nav .mod-raised {
+  backdrop-filter: none;
+  background-color: var(--background-secondary) !important;
+  border-radius: 4px;
+}
+
+.mobile-navbar-action .clickable-icon, .mobile-navbar-action button {
+  border-radius: 0px;
+}
+
+/* 文字工具栏 */
+.mobile-toolbar-options-container {
+  background-color: transparent !important;
+
+  /* 内部 */
+  .mobile-toolbar-options-list-container.mod-raised {
+    background-color: transparent !important;
+    border-radius: 4px;
+  }
+}
+
+/* 下方导航栏 */
+.mobile-navbar {
+  --navbar-radius: 4px;
+}
+
+/* 输入框 */
+.is-phone .prompt-input[type=text] {
+  border-radius: 4px;
+}
+
+/* 属性栏属性栏属性栏 */
+.is-mobile .metadata-content {
+  transform: none;
+  width: 100%;
+}
+
+
+/* 全局 */
 
 body {
   /* Gumroad Palette */
@@ -67,7 +195,8 @@ body {
   --header-height: 50px;
   --callout-title-weight: 400;
 
-  /* --background-modifier-border: var(--gumroad-black); */
+  /* 2026-03-27 很多 border top 会用这个颜色 */
+  --background-modifier-border: var(--gumroad-black);
   --background-modifier-border-focus: var(--gumroad-accent);
 
   --dropdown-background-hover: transparent;
@@ -98,6 +227,9 @@ body {
   --checkbox-color: var(--gumroad-black);
   --checkbox-border-color: var(--gumroad-black);
   --checkbox-border-color-hover: var(--gumroad-black);
+
+  /* --text-on-accent: var(--color-accent); */
+  --checkbox-marker-color: var(--gumroad-black) !important;
 
   --code-background: var(--background-secondary);
 
@@ -744,6 +876,14 @@ img {
   box-shadow: none;
 }
 
+/* 下载附件里的 */
+.attachments-gallery img,
+
+/* Codeblock Customizer */
+img.codeblock-customizer-icon,
+
+img.cm-widgetBuffer,
+
 /* Callout 里的 */
 .callout img {
   box-shadow: none;
@@ -751,6 +891,13 @@ img {
   /* border-width: 1px; */
   /* max-width: 100% !important; */
 }
+
+.attachments-gallery .download-attachment-item img, .attachments-gallery .download-attachment-item video {
+  margin-top: var(--border-width);
+  margin-bottom: var(--border-width);
+  
+}
+
 
 /* UI Controls */
 button:not(.clickable-icon) {
@@ -940,7 +1087,9 @@ strong, .cm-strong {
 .markdown-embed {
   border: 1px solid var(--gumroad-black);
   border-radius: var(--gumroad-border-radius);
-  margin-bottom: 1em;
+
+  /* 2026-03-27 为啥？？ */
+  /* margin-bottom: 1em; */
 
   /* box-shadow: 5px 5px 0 var(--gumroad-accent); */
 
@@ -955,6 +1104,7 @@ strong, .cm-strong {
   /* border-top: 1px solid var(--setting-items-border-color); */
   border: none;
 }
+
 
 /* 设置栏左侧 */
 /* .vertical-tab-header {
@@ -972,7 +1122,47 @@ strong, .cm-strong {
     outline-color: var(--gumroad-black);
 }
 
+input[type="radio"]:checked, input[type=checkbox]:checked {
+  background-color: var(--gumroad-white);
+
+  &:hover {
+    background-color: var(--gumroad-accent) !important;
+  }
+}
+
 /* ! ==== 特定插件 ==== */
+
+/* ! Negative Heading */
+.cm-inline-code .cm-neg-heading-text {
+  color: var(--gumroad-white);
+}
+
+/* ! Easy Typing */
+
+/* 设置的首个配置的 border top */
+.et-settings-section-body>.setting-item:first-child {
+  border-top: 1px solid var(--setting-items-border-color);
+}
+
+.et-settings-nav {
+  gap: 8px;
+  padding-bottom: 1em;
+
+  border-bottom-width: 1px;
+}
+
+/* ! Components */
+
+.components--Picture img {
+  margin: 0;
+  /* 适配圆角 */
+  border-radius: var(--radius-m);
+
+  &:hover {
+    box-shadow: none;
+    transform: none;
+  }
+}
 
 /* ! Export Image */
 .export-image-preview-out {
@@ -1209,6 +1399,13 @@ a.tag, .cm-hashtag {
   }
 }
 
+/* QuickSwitch 输入框 */
+input.prompt-input:hover, input.prompt-input:focus, input.prompt-input:focus-visible {
+    border-bottom: var(--border-width) solid var(--gumroad-black);
+}
+
+
+
 /* ! 弹出框 */
 
 .prompt {
@@ -1356,4 +1553,5 @@ input[type="radio"], input[type=checkbox] {
 
     opacity: 1.0;
 }
+
 
