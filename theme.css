@@ -59,9 +59,12 @@
   --view-header-action-radius: 2px !important;
 
   /* 顶部工具栏 */
+  /* 这个本身就是悬浮的了……所以最好，就，不改？ */
   .is-mobile.is-floating-nav.is-phone .view-header {
     background-color: var(--background-primary);
-    margin-top: 0px;
+
+    /* 顶部灵动岛啥的，不能改 */
+    /* margin-top: 0px; */
   }
 
   /* 文件列表——标签页 */
