@@ -50,13 +50,19 @@
 
   /* 导航栏按钮 圆角 */
   --touch-radius-xl: 4px !important;
-  --touch-radius-l: 0px !important;
-  --touch-radius-s: 0px !important;
-  --touch-radius-xxs: 0px !important;
+  --touch-radius-l: 4px !important;
+  --touch-radius-s: 4px !important;
+  --touch-radius-xxs: 4px !important;
 
   --input-radius: 4px !important;
 
   --view-header-action-radius: 2px !important;
+
+  /* 顶部工具栏 */
+  .is-mobile.is-floating-nav.is-phone .view-header {
+    background-color: var(--background-primary);
+    margin-top: 0px;
+  }
 
   /* 文件列表——标签页 */
   .workspace-drawer-tab-select .workspace-tab-header-inner {
@@ -111,7 +117,6 @@
 
 .is-mobile.is-floating-nav .mod-raised {
   backdrop-filter: none;
-  background-color: var(--background-secondary) !important;
   border-radius: 4px;
 }
 
