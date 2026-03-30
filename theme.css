@@ -91,6 +91,13 @@
     border-radius: 4px !important;
   }
 
+  /* 同步区域 */
+  .workspace-leaf-content[data-type="sync"] {
+    .view-content {
+      padding-bottom: 0px !important;
+    }
+  }
+
 }
 
 .is-phone .mod-raised {
