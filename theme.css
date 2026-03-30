@@ -127,6 +127,8 @@
   border-radius: 0px;
 }
 
+
+
 /* 文字工具栏 */
 .mobile-toolbar-options-container {
   background-color: transparent !important;
@@ -136,6 +138,11 @@
     background-color: transparent !important;
     border-radius: 4px;
   }
+}
+
+/* 上方导航栏 */
+.is-phone:not(.is-floating-nav) .view-header {
+  border-bottom: 1px solid var(--gumroad-black) !important;
 }
 
 /* 下方导航栏 */
