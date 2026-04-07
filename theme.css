@@ -22,11 +22,33 @@
 
 /* NTB */
 
+.callout[data-callout="note-toolbar"] {
+  border: none !important;
+}
+
+body .callout[data-callout="note-toolbar"][data-callout-metadata*="glass"]:not([data-callout-metadata*="card"]), body.is-mobile .callout[data-callout="note-toolbar"][data-callout-metadata*="mgls"]:not([data-callout-metadata*="card"]) {
+    & ul {
+        & a, & span.external-link {
+            border: var(--border-width) solid var(--background-modifier-border);
+            border-radius: 4px;
+            box-shadow: none;
+            transition: var(--ntb-anim-duration-moderate);
+        }
+    }
+}
+
 .note-toolbar-setting-item-controls {
     & .setting-item {
       border-left: none;
       border-right: none;
-     }}
+     }
+}
+
+.note-toolbar-setting-button,
+
+.note-toolbar-setting-view-cta.note-toolbar-setting-help-view-section .setting-item {
+  border: none;
+}
 
 .modal:not(.mod-settings) .setting-item:not(.setting-item-heading):first-child {
   border: none;
@@ -53,8 +75,15 @@
   --touch-radius-l: 4px !important;
   --touch-radius-s: 4px !important;
   --touch-radius-xxs: 4px !important;
+  /* 不能直接改，有复用—— */
+  /* --touch-size-m: 4px !important; */
 
   --input-radius: 4px !important;
+
+  /* 底部的输入框（切换文件/命令面板） */
+  .prompt-input-container {
+    border-radius: 4px;
+  }
 
   --view-header-action-radius: 2px !important;
 
@@ -109,8 +138,9 @@
 
 }
 
+/* 260407_会导致看不到背景色啊，不中 */
 .is-phone .mod-raised {
-  background: none;
+  /* background: none; */
 }
 
 /* 渐变遮罩 */
