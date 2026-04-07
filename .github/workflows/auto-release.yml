@@ -9,6 +9,9 @@ on:
       - 'manifest.json'
       - 'theme.css'
 
+permissions:
+  contents: write
+
 jobs:
   check-and-release:
     runs-on: ubuntu-latest
