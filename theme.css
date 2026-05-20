@@ -67,7 +67,6 @@ body .callout[data-callout="note-toolbar"][data-callout-metadata*="glass"]:not([
 /* 2026-03-30 移动端适配 */
 .is-mobile {
   --touch-radius-xs: 4px;
-  --interactive-normal: var(--background-secondary) !important;
   --nav-item-radius: 0px !important;
 
   /* 导航栏按钮 圆角 */
@@ -312,10 +311,17 @@ body {
   --prompt-border: 2px solid var(--gumroad-black);
   --modal-border: 2px solid var(--gumroad-black);
 
-  /* Inputs */
+  /* Inputs — must live on .theme-light; body {} loses to Obsidian's .theme-dark */
   --input-radius: 0px;
   --input-radius: var(--gumroad-border-radius);
   --input-border-width: 1px;
+  --interactive-normal: var(--background-secondary);
+  --background-modifier-form-field: var(--background-secondary);
+  --background-modifier-form-field-hover: var(--background-secondary);
+  --metadata-input-background: var(--background-secondary);
+  --metadata-input-background-hover: var(--background-secondary);
+  --metadata-input-background-active: var(--background-secondary);
+  --metadata-input-text-color: var(--text-normal);
 }
 
 .ultra-black .theme-dark {
@@ -327,6 +333,9 @@ body {
   --gumroad-black: #dadada;
   --gumroad-white: #000000;
   --gumroad-gray: #070707;
+
+  --background-modifier-form-field: var(--background-secondary);
+  --metadata-input-background: var(--background-secondary);
 
   /* 参考： */
   /* 
@@ -365,11 +374,35 @@ body {
   --tx3: #999;
   /* --text-faint: #666; */
 
+  --text-normal: var(--tx1);
+  --text-muted: var(--tx3);
+
+  /* Inputs — decouple from --background-modifier-border (#eee in dark) */
+  --interactive-normal: var(--background-secondary);
+  --background-modifier-form-field: var(--background-secondary);
+  --background-modifier-form-field-hover: var(--color-base-25);
+  --metadata-input-background: var(--background-secondary);
+  --metadata-input-background-hover: var(--color-base-25);
+  --metadata-input-background-active: var(--color-base-25);
+  --metadata-input-text-color: var(--text-normal);
+  --metadata-property-background-hover: rgba(255, 255, 255, 0.06);
+  --xfa-unfocused-field-background: none;
+
   /* Borders & Dividers */
   --divider-color: var(--gumroad-black);
   --prompt-border: 2px solid var(--gumroad-white);
   --modal-border: 2px solid var(--gumroad-white);
+}
 
+/* Obsidian .is-mobile.theme-dark sets form-field → border (#eee) */
+body.is-mobile.theme-dark,
+.is-mobile.theme-dark {
+  --interactive-normal: var(--background-secondary) !important;
+  --background-modifier-form-field: var(--background-secondary) !important;
+  --background-modifier-form-field-hover: var(--color-base-25) !important;
+  --metadata-input-background: var(--background-secondary) !important;
+  --metadata-input-background-hover: var(--color-base-25) !important;
+  --metadata-input-background-active: var(--color-base-25) !important;
 }
 
 
@@ -1435,6 +1468,107 @@ a.tag, .cm-hashtag {
   box-shadow: 7px 7px 0 var(--gumroad-black);
 }
 
+
+/* Text inputs — use `background` shorthand; beat Obsidian metadata transparent rules */
+body.theme-dark textarea,
+body.theme-dark .metadata-input-longtext,
+body.theme-dark .metadata-property-value textarea,
+body.theme-dark .metadata-property-value .metadata-input-longtext,
+body.theme-dark .metadata-property-value input.metadata-input-text,
+body.theme-dark .multi-select-container,
+body.theme-dark input.prompt-input,
+body.theme-dark .search-input,
+body.theme-dark .setting-item textarea,
+body.theme-dark .setting-item input[type='text'],
+body.theme-dark .setting-item input[type='search'],
+body.theme-dark .setting-item input[type='number'],
+body.theme-dark .setting-item input[type='email'],
+body.theme-dark .setting-item input[type='password'],
+body.theme-dark input[type='date'],
+body.theme-dark input[type='datetime-local'],
+body.theme-dark input[type='text'],
+body.theme-dark input[type='search'],
+body.theme-dark input[type='email'],
+body.theme-dark input[type='password'],
+body.theme-dark input[type='number'],
+body.is-mobile.theme-dark textarea,
+body.is-mobile.theme-dark .metadata-input-longtext,
+body.is-mobile.theme-dark .metadata-property-value textarea,
+body.is-mobile.theme-dark .metadata-property-value .metadata-input-longtext,
+body.is-mobile.theme-dark .metadata-property-value input.metadata-input-text,
+body.theme-light textarea,
+body.theme-light .metadata-input-longtext,
+body.theme-light .metadata-property-value textarea,
+body.theme-light .metadata-property-value .metadata-input-longtext,
+body.theme-light .metadata-property-value input.metadata-input-text,
+body.theme-light .multi-select-container,
+body.theme-light input.prompt-input,
+body.theme-light .search-input,
+body.theme-light .setting-item textarea,
+body.theme-light .setting-item input[type='text'],
+body.theme-light .setting-item input[type='search'],
+body.theme-light .setting-item input[type='number'],
+body.theme-light .setting-item input[type='email'],
+body.theme-light .setting-item input[type='password'],
+body.theme-light input[type='date'],
+body.theme-light input[type='datetime-local'],
+body.theme-light input[type='text'],
+body.theme-light input[type='search'],
+body.theme-light input[type='email'],
+body.theme-light input[type='password'],
+body.theme-light input[type='number'] {
+  background: var(--background-secondary) !important;
+  background-image: none !important;
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+}
+
+body.theme-dark textarea:hover,
+body.theme-dark textarea:focus,
+body.theme-dark textarea:focus-visible,
+body.theme-dark textarea:active,
+body.theme-dark .metadata-input-longtext:hover,
+body.theme-dark .metadata-input-longtext:focus,
+body.theme-dark .metadata-property-value textarea:hover,
+body.theme-dark .metadata-property-value textarea:focus,
+body.theme-dark .metadata-property-value textarea:focus-visible,
+body.theme-dark .metadata-property-value textarea:active,
+body.theme-dark .metadata-property-value .metadata-input-longtext:hover,
+body.theme-dark .metadata-property-value .metadata-input-longtext:focus,
+body.theme-dark .metadata-property-value input.metadata-input-text:hover,
+body.theme-dark .metadata-property-value input.metadata-input-text:focus,
+body.theme-dark .metadata-property-value input.metadata-input-text:focus-visible,
+body.theme-dark .metadata-property-value input.metadata-input-text:active,
+body.is-mobile.theme-dark textarea:hover,
+body.is-mobile.theme-dark textarea:focus,
+body.is-mobile.theme-dark textarea:focus-visible,
+body.is-mobile.theme-dark .metadata-input-longtext:hover,
+body.is-mobile.theme-dark .metadata-input-longtext:focus,
+body.theme-light textarea:hover,
+body.theme-light textarea:focus,
+body.theme-light textarea:focus-visible,
+body.theme-light .metadata-input-longtext:hover,
+body.theme-light .metadata-input-longtext:focus,
+body.theme-light .metadata-property-value textarea:hover,
+body.theme-light .metadata-property-value textarea:focus,
+body.theme-light .metadata-property-value input.metadata-input-text:hover,
+body.theme-light .metadata-property-value input.metadata-input-text:focus {
+  background: var(--color-base-25) !important;
+  background-image: none !important;
+  color: var(--text-normal) !important;
+  -webkit-text-fill-color: var(--text-normal) !important;
+}
+
+body.theme-dark .metadata-property-value,
+body.is-mobile.theme-dark .metadata-property-value {
+  background-color: var(--background-secondary) !important;
+}
+
+body.theme-dark .metadata-property:focus-within .metadata-property-value,
+body.theme-dark .metadata-property.has-focus .metadata-property-value,
+body.is-mobile.theme-dark .metadata-property:focus-within .metadata-property-value {
+  background-color: var(--color-base-25) !important;
+}
 
 /* 模态的 输入框 */
 .modal {
