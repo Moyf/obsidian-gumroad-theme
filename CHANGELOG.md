@@ -13,7 +13,7 @@
 -
 
 ### Fixed
--
+- **Text input contrast (dark mode)**: Properties longtext fields, settings inputs, and other text fields no longer use `#eeeeee` backgrounds that match border color. Overrides Obsidian `.is-mobile.theme-dark` mapping `form-field` to `background-modifier-border`, metadata transparent focus rules, and `xfa-unfocused-field-background`.
 
 ---
 
