@@ -294,6 +294,15 @@ body {
 
   /* 分隔线 */
   --hr-color: var(--gumroad-black);
+
+  --interactive-normal: var(--bg2);
+  --interactive-hover: var(--bg3);
+}
+
+/* Override app.css macOS-specific cascade (.mod-macos { --interactive-normal: var(--background-modifier-border) }) */
+body.mod-macos {
+  --interactive-normal: var(--bg2);
+  --interactive-hover: var(--bg3);
 }
 
 .theme-light {
@@ -1183,6 +1192,12 @@ input[type="radio"]:checked, input[type=checkbox]:checked {
 }
 
 /* ! ==== 特定插件 ==== */
+
+/* ! Syncthing Manager */
+.st-device-badge {
+  background-color: var(--bg2);
+  color: var(--tx1);
+}
 
 /* ! Negative Heading */
 .cm-inline-code .cm-neg-heading-text {
