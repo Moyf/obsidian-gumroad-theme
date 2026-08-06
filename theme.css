@@ -12,6 +12,8 @@
 
 /* 5. 全长的分隔线 */
 
+/* 6. 1px 和 2px 的border宽度 */
+
 /* 插件适配 */
 
 /* Hometab */
@@ -22,19 +24,47 @@
 
 /* NTB */
 
+.note-toolbar-ui {
+    &[data-ntb-ui-type="suggester"] {
+        & .ntb-suggester-header {
+          border-bottom: var(--border-width) solid var(--gumroad-black);
+        }
+    }
+  }
+
 .callout[data-callout="note-toolbar"] {
   border: none !important;
+}
+
+.cm-embed-block:has(> div > .callout[data-callout="note-toolbar"]:not(.note-toolbar-launchpad)) {
+  padding: 10px;
 }
 
 body .callout[data-callout="note-toolbar"][data-callout-metadata*="glass"]:not([data-callout-metadata*="card"]), body.is-mobile .callout[data-callout="note-toolbar"][data-callout-metadata*="mgls"]:not([data-callout-metadata*="card"]) {
     & ul {
         & a, & span.external-link {
-            border: var(--border-width) solid var(--background-modifier-border);
+            /* border: var(--border-width) solid var(--background-modifier-border); */
             border-radius: 4px;
             box-shadow: none;
             transition: var(--ntb-anim-duration-moderate);
+
+            padding: 0px;
         }
     }
+}
+
+/* 按钮边框 */
+body .callout[data-callout="note-toolbar"], body .workspace .callout[data-callout="note-toolbar"] {
+  & .callout-content {
+      & li {
+          outline: var(--outline-width) solid var(--gumroad-black);
+
+          &:hover {
+              /* transform: translate(-2px, -2px); */
+              box-shadow: 0.25em 0.25em 0 var(--gumroad-black);
+          }
+      }
+  }
 }
 
 .note-toolbar-setting-item-controls {
@@ -103,7 +133,7 @@ body .callout[data-callout="note-toolbar"][data-callout-metadata*="glass"]:not([
 
   /* 选中项 */
   .workspace-drawer-tab-options:not(.has-swipe) .workspace-tab-header.is-active .workspace-tab-header-inner {
-    border: 1px solid var(--gumroad-black);
+    border: var(--border-width) solid var(--gumroad-black);
   }
 
   .workspace-leaf-content {
@@ -112,7 +142,7 @@ body .callout[data-callout="note-toolbar"][data-callout-metadata*="glass"]:not([
   }
 
   .workspace-leaf .workspace-leaf-content {
-    border-top: 1px solid var(--gumroad-black) !important;
+    border-top: var(--border-width) solid var(--border-color) !important;
   }
 
   /* 侧边标题栏 */
@@ -172,7 +202,7 @@ body .callout[data-callout="note-toolbar"][data-callout-metadata*="glass"]:not([
 
 /* 上方导航栏 */
 .is-phone:not(.is-floating-nav) .view-header {
-  border-bottom: 1px solid var(--gumroad-black) !important;
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 /* 下方导航栏 */
@@ -219,7 +249,8 @@ body {
   --gumroad-border-radius-s: 4px;
   --gumroad-border-radius-m: 8px;
   --gumroad-border-radius-l: 16px;
-  --gumroad-border-radius: var(--gumroad-border-radius-s);
+  /* --gumroad-border-radius: var(--gumroad-border-radius-s); */
+  --gumroad-border-radius: 0px;
 
   --bg1: var(--gumroad-white);
   --bg2: var(--gumroad-gray);
@@ -229,14 +260,23 @@ body {
   --tx2: var(--gumroad-black);
   --tx3: #999;
 
+  
+  --text-muted: var(--tx1);
+
   --hl1: var(--gumroad-accent);
 
+  /* 边界颜色 */
+  --border-color: #555555;
+
   /* Borders */
-  --border-width: 1px;
+  --border-width: 2px;
+  --outline-width: 2px;
+
   /* --interactive-accent: var(--gumroad-black); */
   --interactive-accent-hover: var(--gumroad-accent);
 
-  --tab-outline-color: var(--gumroad-black);
+  --tab-outline-color: var(--border-color);
+  --tab-outline-width: var(--border-width);
 
   /* Layout */
   --tab-radius: 0px;
@@ -258,8 +298,17 @@ body {
 
   /* 设置 */
   --setting-items-border-color: var(--gumroad-black);
-  --setting-items-border-width: 1px;
+  --setting-items-border-width: var(--border-width);
+
+  /* 分隔线 */
   --setting-items-radius: 8px;
+
+  /* 左右分隔距离 */
+  /* 不能直接设置，会导致选项本身也没有空间，单独对线做设置 */
+  /* --setting-items-padding-x: 0px; */
+  
+  /* Setting Group 的分隔线/设置分组的分隔线 */
+  --setting-items-divider-width: var(--border-width);
 
   /* --setting-items-padding: 0px; */
 
@@ -268,8 +317,9 @@ body {
 
   --radius-s: 0px;
 
+
   --tag-radius: 0px;
-  --tag-border-width: 1px;
+  --tag-border-width: var(--border-width);
 
   --nav-item-weight-active: 700;
   
@@ -294,6 +344,8 @@ body {
 
   /* 分隔线 */
   --hr-color: var(--gumroad-black);
+
+  --text-on-accent: var(--gumroad-black);
 }
 
 .theme-light {
@@ -303,8 +355,13 @@ body {
   --background-secondary-alt: var(--bg2);
   /* Make sidebars distinct gray */
 
+  /* 常规文本 */
   --text-normal: var(--tx1);
-  --text-muted: var(--tx3);
+
+  /* --text-muted: var(--tx3); */
+  /* 暗色文本 */
+  --text-muted: var(--tx1);
+
   --text-faint: #999;
 
   /* Borders & Dividers */
@@ -399,7 +456,7 @@ body {
 /* Navbar 标题栏 */
 .view-header,
 .nav-header {
-  border-bottom: 1px solid var(--gumroad-black) !important;
+  border-bottom: var(--border-width) solid var(--border-color);
   box-shadow: none;
 
   /* height: var(--header-height); */
@@ -423,9 +480,9 @@ body {
 
 .workspace-split.mod-root .workspace-tab-header:not(.is-active) {
     &:hover {
-      /* border: 1px solid var(--gumroad-black); */
+      /* border: var(--border-width) solid var(--gumroad-black); */
       .workspace-tab-header-inner {
-        outline: 1px solid var(--gumroad-black);
+        outline: var(--outline-width) solid var(--gumroad-black);
 
       }
       /* box-shadow: 2px 2px 0 var(--gumroad-black);
@@ -448,23 +505,52 @@ body {
 }
 
 
-/* 垂直的激活项 */
+/* ! （设置中）垂直的激活项 */
 .vertical-tab-header-group {
-  border-bottom: 1px solid var(--gumroad-black);
+  border-bottom: var(--border-width) solid var(--gumroad-black);
+  
 
   &:last-child {
     border-bottom: none;
   }
 }
 
+.vertical-tab-nav-item {
+  border-radius: 0px;
+
+  &:hover {
+      outline: var(--outline-width) solid var(--gumroad-black);
+  }
+}
+
+/* * 垂直设置选项（激活状态） */
 .vertical-tab-nav-item.tappable.is-active {
-  border: 2px solid var(--gumroad-black);
+  /* outline: var(--outline-width) solid var(--gumroad-black); */
+  border: var(--border-width) solid var(--gumroad-black);
   box-shadow: 3px 3px 0 var(--gumroad-black);
+
+  margin-bottom: 4px;
+
+  .vertical-tab-nav-item-icon {
+    color: var(--gumroad-black);
+  }
 
   /* Hover 是悬浮，active 是按下 */
   &:active {
     box-shadow: 0px 0px 0 var(--gumroad-black);
     transform: translate(2px, 2px);
+    
+  }
+  
+  &:hover {
+      /* box-shadow: 3px 3px 0 var(--gumroad-accent); */
+      outline: none;
+      color: var(--gumroad-white);
+      background-color: var(--gumroad-accent);
+      
+    .vertical-tab-nav-item-icon {
+      color: var(--gumroad-white);
+    }
   }
 
 }
@@ -475,14 +561,15 @@ body {
 
     &:hover {
       border-color: var(--gumroad-accent);
-      border-width: 1px;
+      border-width: var(--border-width);
       /* outline: 2px solid var(--gumroad-accent); */
     }
 
 }
 
 .community-item.tappable.is-selected {
-    border: 2px solid var(--gumroad-black) !important;
+    /* border: 2px solid var(--gumroad-black) !important; */
+    outline: var(--outline-width) solid var(--gumroad-black);
     box-shadow: 3px 3px 0 var(--gumroad-black);
 
     /* Hover 是悬浮，active 是按下 */
@@ -500,6 +587,7 @@ body {
     margin-bottom: 10px;
     border-radius: 0px;
 }
+
 
 /* 边缘显示 */
 
@@ -527,10 +615,10 @@ body {
 /* The Editor "Page" - Card Style */
 .workspace-leaf .workspace-leaf-content {
   /* 都交给右边来显示 */
-  border-left: 1px solid var(--gumroad-black);
-  border-right: 1px solid var(--gumroad-black);
+  border-left: var(--border-width) solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color);
   border-top: none;
-  border-bottom: 1px solid var(--gumroad-black);
+  border-bottom: var(--border-width) solid var(--border-color);
   box-shadow: none;
   /* Removed heavy shadow */
   margin: 0px;
@@ -554,13 +642,13 @@ body {
 .mod-left-split .workspace-leaf-content,
 .mod-right-split .workspace-leaf-content {
   border: none;
-  /* border-right: 1px solid var(--gumroad-black); */
-  border-bottom: 1px solid var(--gumroad-black);
+  /* border-right: var(--border-width) solid var(--gumroad-black); */
+  border-bottom: var(--border-width) solid var(--gumroad-black);
   /* margin: 0 !important; */
 }
 
 .mod-top-right-space .workspace-leaf-content {
-  /* border-left: 1px solid var(--gumroad-black); */
+  /* border-left: var(--border-width) solid var(--gumroad-black); */
   /* margin: 0 !important; */
 }
 
@@ -600,8 +688,8 @@ body {
 .workspace-ribbon {
   background-color: var(--gumroad-gray);
   /* Changed from yellow to gray */
-  border-right: 1px solid var(--gumroad-black);
-  border-bottom: 1px solid var(--gumroad-black);
+  border-right: var(--border-width) solid var(--gumroad-black);
+  border-bottom: var(--border-width) solid var(--gumroad-black);
 }
 
 .workspace-ribbon-collapse-btn,
@@ -647,13 +735,13 @@ body {
 .nav-file-title,
 .nav-folder-title {
   margin-bottom: 2px;
-  border: 1px solid transparent;
+  border: var(--border-width) solid transparent;
 }
 
 .nav-file-title:hover,
 .nav-folder-title:hover {
   background-color: var(--gumroad-accent);
-  border: 1px solid var(--gumroad-black);
+  border: var(--border-width) solid var(--gumroad-black);
   color: var(--gumroad-black);
 }
 
@@ -824,8 +912,8 @@ h6 {
 
 /* Inline Code */
 code {
-  background-color: var(--gumroad-yellow);
-  border: 1px solid var(--gumroad-black);
+  /* background-color: var(--gumroad-yellow); */
+  border: var(--border-width) solid var(--gumroad-black);
   color: var(--gumroad-black);
   padding: 2px 6px;
   font-family: var(--font-monospace);
@@ -872,7 +960,7 @@ a:hover,
   border-left: none;
   border-left: 3px solid var(--gumroad-black);
   /* remove standard strip */
-  outline: 1px solid var(--gumroad-black);
+  outline: var(--outline-width) solid var(--gumroad-black);
   background-color: var(--gumroad-gray);
   /* margin: 1em 0; */
   padding: var(--size-4-1) var(--size-4-2);
@@ -940,7 +1028,7 @@ img.cm-widgetBuffer,
 .callout img {
   box-shadow: none;
   transform: none;
-  /* border-width: 1px; */
+  /* border-width: var(--border-width); */
   /* max-width: 100% !important; */
 }
 
@@ -952,21 +1040,28 @@ img.cm-widgetBuffer,
 
 
 /* UI Controls */
-button:not(.clickable-icon) {
-  border: 1px solid var(--gumroad-black);
-  border-radius: 4px;
+body button:not(.clickable-icon) {
+  border: var(--border-width) solid var(--gumroad-black);
+  border-radius: var(--gumroad-border-radius);
+
   background-color: var(--gumroad-white);
   color: var(--gumroad-black);
   /* font-weight: 600; */
   transition: transform var(--transition-duration), box-shadow var(--transition-duration);
   transition-timing-function: ease-out;
 
-  box-shadow: none;
+  /* box-shadow: none; */
 
   &:hover {
     /* background-color: var(--gumroad-black); */
     transform: translate(-2px, -2px);
     box-shadow: 0.25em 0.25em 0 var(--gumroad-black);
+  }
+
+  /* active 按下 */
+  &:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 var(--gumroad-accent);
   }
 }
 
@@ -975,7 +1070,7 @@ button.mod-cta {
   background-color: var(--gumroad-black);
   color: var(--gumroad-white);
   /* box-shadow: 4px 4px 0 var(--gumroad-yellow); */
-  border: 1px solid black;
+  border: var(--border-width) solid black;
   border-radius: 4px;
   /* transition: transform 0.1s, box-shadow 0.1s; */
   /* Already specific, good */
@@ -998,7 +1093,7 @@ button.mod-cta:active {
 
 
 select, .combobox-button, .dropdown {
-    border: 1px solid var(--gumroad-black);
+    border: var(--border-width) solid var(--gumroad-black);
     /* box-shadow: var(--input-shadow); */
     box-shadow: none;
 
@@ -1025,14 +1120,14 @@ strong, .cm-strong {
   /* color: var(--gumroad-accent) !important; */
 
   /* padding-bottom: 2px; */
-  /* border-bottom: 1px solid var(--gumroad-black); */
+  /* border-bottom: var(--border-width) solid var(--gumroad-black); */
 }
 
 /* 右下角状态栏 */
 
 .status-bar {
   margin-right: 1em;
-  border: 1px solid var(--gumroad-black);
+  border: var(--border-width) solid var(--gumroad-black);
   margin-bottom: 1em;
   border-radius: 4px;
 
@@ -1046,7 +1141,7 @@ strong, .cm-strong {
 
 .workspace-split.mod-root {
   .metadata-container {
-    border: 1px solid var(--gumroad-black);
+    border: var(--border-width) solid var(--gumroad-black);
     padding: 0px;
 
     margin-top: 1em;
@@ -1070,7 +1165,7 @@ strong, .cm-strong {
 
     padding: 8px 12px;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--gumroad-black);
+    border-bottom: var(--border-width) solid var(--gumroad-black);
     
     .metadata-properties-title {
       color: white !important;
@@ -1080,7 +1175,7 @@ strong, .cm-strong {
   /* 属性表格 */
   .metadata-property {
     border-radius: 0px !important;
-    border-bottom: 1px solid var(--gumroad-black);
+    border-bottom: var(--border-width) solid var(--gumroad-black);
   }
 
   @media (hover: hover) {
@@ -1101,7 +1196,7 @@ strong, .cm-strong {
   }
 
     .metadata-properties {
-      /* border-bottom: 1px solid var(--gumroad-black); */
+      /* border-bottom: var(--border-width) solid var(--gumroad-black); */
       --metadata-gap: 0px;
     }
 
@@ -1109,7 +1204,7 @@ strong, .cm-strong {
   .metadata-add-button  {
     margin-bottom: 0.5em;
     margin-left: 0.5em;
-    /* border: 1px solid var(--gumroad-black); */
+    /* border: var(--border-width) solid var(--gumroad-black); */
 
     svg.svg-icon {
       fill: var(--gumroad-black);
@@ -1137,7 +1232,7 @@ strong, .cm-strong {
 }
 
 .markdown-embed {
-  border: 1px solid var(--gumroad-black);
+  border: var(--border-width) solid var(--gumroad-black);
   border-radius: var(--gumroad-border-radius);
 
   /* 2026-03-27 为啥？？ */
@@ -1151,9 +1246,28 @@ strong, .cm-strong {
   } */
 }
 
+/* ! 设置区 */
+.CI__tab-group {
+  border-radius: var(--gumroad-border-radius);
+
+}
+
+.CI__tab-list {
+  /* 周围留空，便于按钮浮动 */
+  padding: 2px;
+
+  border-bottom: none;
+}
+.setting-group .setting-item:not(.setting-item-heading)::before {
+  left: 0px;
+  right: 0px;
+}
+
+
+
 /* 设置标题项 */
 .setting-item-heading {
-  /* border-top: 1px solid var(--setting-items-border-color); */
+  /* border-top: var(--border-width) solid var(--setting-items-border-color); */
   border: none;
 }
 
@@ -1171,7 +1285,10 @@ strong, .cm-strong {
 
 .checkbox-container {
     /* outline-width: 1px; */
+    outline-width: var(--outline-width);
     outline-color: var(--gumroad-black);
+
+    background-color: var(--gumroad-black);
 }
 
 input[type="radio"]:checked, input[type=checkbox]:checked {
@@ -1193,14 +1310,14 @@ input[type="radio"]:checked, input[type=checkbox]:checked {
 
 /* 设置的首个配置的 border top */
 .et-settings-section-body>.setting-item:first-child {
-  border-top: 1px solid var(--setting-items-border-color);
+  border-top: var(--border-width) solid var(--setting-items-border-color);
 }
 
 .et-settings-nav {
   gap: 8px;
   padding-bottom: 1em;
 
-  border-bottom-width: 1px;
+  border-bottom-width: var(--border-width);
 }
 
 /* ! Components */
@@ -1243,7 +1360,7 @@ body {
 .callout.cg-note-toolbar-callout,
 .markdown-source-view.mod-cm6 .callout.cg-note-toolbar-callout {
   /* border: 2px solid var(--gumroad-black) !important; */
-  border-width: 1px !important;
+  border-width: var(--border-width) !important;
 }
 
 .cg-note-toolbar-container[data-tbar-position="text"] {
@@ -1273,7 +1390,7 @@ body {
 /* Ember */
 .ember-rank-badge {
   background-color: transparent;
-  border: 1px solid var(--gumroad-black);
+  border: var(--border-width) solid var(--gumroad-black);
   color: var(--gumroad-black);
 }
 
@@ -1295,18 +1412,18 @@ body {
 }
 /* Linter */
 .linter-border-bottom {
-    border-top: 1px solid var(--background-modifier-border);
+    border-top: var(--border-width) solid var(--background-modifier-border);
 }
 
 .setting-item-description code {
-  background-color: var(--gumroad-orange);
+  /* background-color: var(--gumroad-orange); */
   border: none;
-  color: white;
+  color: var(--gumroad-orange);
 }
 
 /* TP */
 .templater_div > .setting-item {
-  border-top: 1px solid var(--gumroad-black) !important;
+  border-top: var(--border-width) solid var(--gumroad-black) !important;
 }
 
 .templater_div {
@@ -1324,7 +1441,7 @@ body {
 /* 高亮文字 */
 mark,
 .cm-highlight {
-  border: 1px solid var(--gumroad-white);
+  border: var(--border-width) solid var(--gumroad-white);
   border-radius: var(--gumroad-border-radius-s);
   padding: 2px 4px;
   color: var(--gumroad-black);
@@ -1340,7 +1457,7 @@ em, .cm-em {
 a.tag, .cm-hashtag {
   /* background-color: var(--gumroad-purple); */
   /* background-color: var(--gumroad-yellow); */
-  border: 1px solid var(--gumroad-black);
+  border: var(--border-width) solid var(--gumroad-black);
   border-left: none;
   border-right: none;
   
@@ -1351,7 +1468,7 @@ a.tag, .cm-hashtag {
 
 @media (hover: hover) {
   a.tag:hover {
-    border: 1px solid var(--gumroad-black);
+    border: var(--border-width) solid var(--gumroad-black);
     border-left: none;
     border-right: none;
 
@@ -1384,7 +1501,7 @@ a.tag, .cm-hashtag {
   margin-left: -15% !important;
 
   hr {
-    border-top-width: 1px;
+    border-top-width: var(--border-width);
 
   }
 }
@@ -1411,7 +1528,7 @@ a.tag, .cm-hashtag {
 
 
 .markdown-rendered pre {
-  outline: 1px solid var(--gumroad-black);
+  outline: var(--outline-width) solid var(--gumroad-black);
 }
 
 .nav-files-container {
@@ -1423,7 +1540,7 @@ a.tag, .cm-hashtag {
 .modal-container.mod-dim .modal {
   --modal-radius: var(--gumroad-border-radius);
   --modal-border-color: var(--gumroad-black);
-  border: 1px solid var(--gumroad-black);
+  border: var(--border-width) solid var(--gumroad-black);
   border-radius: 8px;
 
   /* box-shadow: 7px 7px 0 var(--gumroad-black); */
@@ -1441,7 +1558,7 @@ a.tag, .cm-hashtag {
   textarea, .multi-select-container, input.metadata-input-text, input[type='date'], input[type='datetime-local'], input[type='text'], input[type='search'], input[type='email'], input[type='password'], input[type='number'] {
     -webkit-app-region: no-drag;
     
-    border: 1px solid var(--gumroad-black);
+    border: var(--border-width) solid var(--gumroad-black);
     border-radius: var(--input-radius);
 
   }
@@ -1468,7 +1585,7 @@ input.prompt-input:hover, input.prompt-input:focus, input.prompt-input:focus-vis
   box-shadow: 7px 7px 0 var(--gumroad-black);
 
   .prompt-input-container {
-    border-bottom: 1px solid var(--gumroad-black);
+    border-bottom: var(--border-width) solid var(--gumroad-black);
   }
 }
 
@@ -1476,14 +1593,13 @@ input.prompt-input:hover, input.prompt-input:focus, input.prompt-input:focus-vis
 /* 仓库工具栏 */
 body:not(.is-mobile) .workspace-split.mod-left-split .workspace-sidedock-vault-profile {
   border-top-width: 0px;
+
+  border-bottom: var(--border-width) solid var(--gumroad-black);
 }
 
-.workspace-sidedock-vault-profile {
-  border-right: 1px solid var(--gumroad-black);
-}
 
 input[type="radio"], input[type=checkbox] {
-  border-width: 1px;
+  border-width: var(--border-width);
 
   &:hover {
     transform: translate(-1px -1px);
@@ -1539,7 +1655,7 @@ input[type="radio"], input[type=checkbox] {
     }
 
     padding-bottom: 0.6em;
-    border-bottom: 1px solid var(--hr-color) !important;
+    border-bottom: var(--border-width) solid var(--hr-color) !important;
 
     /* 加宽 */
     max-width: 300% !important;
@@ -1559,7 +1675,7 @@ input[type="radio"], input[type=checkbox] {
 /* Source code mode, only center text and add underline */
 .HyperMD-hr + .cm-comment {
     text-align: center !important;
-    border-bottom: 1px solid var(--hr-color);
+    border-bottom: var(--border-width) solid var(--hr-color);
 }
 
 
@@ -1571,7 +1687,7 @@ input[type="radio"], input[type=checkbox] {
     padding-top: 0px !important;
 
     padding-bottom: 0.6em;
-    border-bottom: 1px solid var(--hr-color);
+    border-bottom: var(--border-width) solid var(--hr-color);
 
     opacity: 1.0;
 
@@ -1584,7 +1700,7 @@ input[type="radio"], input[type=checkbox] {
 /* Source Mode */
 .HyperMD-hr + .cm-line:has(.cm-em) {
     text-align: center !important;
-    border-bottom: 1px solid var(--hr-color);
+    border-bottom: var(--border-width) solid var(--hr-color);
 }
 
 /* Reading Mode */
@@ -1607,3 +1723,103 @@ input[type="radio"], input[type=checkbox] {
 }
 
 
+
+/* Gumroad 待添加 */
+
+
+img.link-favicon {
+    box-shadow: none;
+    border-radius: 0px;
+    border: none;
+}
+
+.workspace-tab-header-container, .workspace-ribbon, .workspace-leaf .workspace-leaf-content,
+
+/* 各种顶部 */
+.view-header,
+/* 文件浏览器顶上 */
+.nav-header,
+/* 左侧栏顶上的那一点点 */
+.workspace-ribbon.mod-left:before,
+/* 顶部栏 */
+.workspace-tab-header-container,
+/* 左侧栏 */
+.workspace-ribbon,
+/* 中央区域 */
+.workspace-leaf .workspace-leaf-content {
+    --border-color: #555;
+    border-color: var(--border-color);
+
+}
+
+
+.cm-s-obsidian .cm-inline-code.cm-formatting ~ .cm-inline-code:not(.cm-formatting), .cm-s-obsidian .cm-inline-code:not(.cm-formatting) {
+    --code-normal: var(--gumroad-orange);
+    --code-background: var(--background-primary);
+}
+
+/* NTB 的阴影取消 */
+.cm-embed-block.cm-embed-block:not([data-is-launchpad]).cg-note-toolbar-container:hover, .cm-embed-block.cm-embed-block:not([data-is-launchpad])[data-is-ntb]:hover {
+    box-shadow: none;
+}
+
+/* NTB 嵌入 Callout 不位移 */
+.callout:hover, .markdown-source-view.mod-cm6 .callout.cg-note-toolbar-callout:hover {
+    transform: none;
+}
+
+/* 这个疑似很容易出问题 */
+/* 规范化改掉吧 */
+.markdown-source-view.mod-cm6 .embed-action.edit-block-button {
+    color: var(--embed-action-color);
+}
+
+/* 超长版本 */
+⛔️.markdown-source-view.mod-cm6.is-readable-line-width .cm-line.hr {
+    max-width: 5000px;
+    width: 5000px !important;
+    margin-left: -2000px !important;
+
+    --hr-color: --border-color;
+}
+
+/* 标签去掉圆角 */
+
+/* 针对 RH 插件 */
+.workspace-leaf-content :is(.running-head-metadata-header,.running-head-top-row,.running-head-breadcrumb) .multi-select-pill,
+.workspace-leaf-content :is(.running-head-metadata-header,.running-head-top-row,.running-head-breadcrumb) .tag,
+body .multi-select-pill.custom-status-icon-pill,
+
+.tag, .cm-hashtag {
+    border-radius: 0px;
+}
+
+
+
+
+/* 嵌入按钮 */
+.embed-actions {
+    margin-top: 16px;
+}
+
+.cm-content .image-embed .image-resize-corner::after, .cm-image-reveal-tooltip .image-embed .image-resize-corner::after {
+    
+    margin-bottom: 8px;
+    margin-right: 4px;
+}
+
+/* click-button 也要改，还有 code */
+
+
+
+/* Betterlinks*/
+.better-links-popover {
+    border: var(--border-width) solid var(--gumroad-black);
+    border-radius: var(--gumroad-border-radius);
+    box-shadow: 4px 4px 0 var(--gumroad-black);
+}
+
+/* Commander */
+.cmdr-adder {
+  opacity: 1;
+}
