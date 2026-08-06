@@ -14,7 +14,29 @@
 
 /* 6. 1px 和 2px 的border宽度 */
 
-/* 插件适配 */
+
+
+/* Style Settings 开关 */
+/* @settings
+
+name: Brutal Gum
+id: brutal-gum
+settings:
+    - 
+        id: highlight-decoration
+        title: Highlight Bottom Border
+        title.zh: 高亮下边框
+        description: Show a border under highlighted text
+        description.zh: 是否在高亮的下方显示边框
+        type: class-toggle
+        default: false
+        addCommand: false
+
+*/
+
+
+
+/*  ! 插件适配 */
 
 /* Hometab */
 .suggester-additional-info,
@@ -1439,13 +1461,15 @@ body {
 /* === 普通样式 === */
 
 /* 高亮文字 */
-mark,
-.cm-highlight {
-  border: var(--border-width) solid var(--gumroad-white);
-  border-radius: var(--gumroad-border-radius-s);
-  padding: 2px 4px;
-  color: var(--gumroad-black);
-  border-bottom: 2px solid var(--gumroad-yellow);
+.highlight-decoration {
+  mark,
+  .cm-highlight {
+    border-radius: var(--gumroad-border-radius-s);
+    padding: 2px 4px;
+    color: var(--gumroad-black);
+    border-bottom: 2px solid var(--gumroad-yellow);
+  }
+  
 }
 
 /* 斜体文本 */
